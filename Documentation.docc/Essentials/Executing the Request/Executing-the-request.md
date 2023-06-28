@@ -1,19 +1,19 @@
-# Executing the request
+# Executando a solicitação
 
-Discover the possibilities to execute your request and manipulate the received data, applying business rules and validating fields.
+Descubra as possibilidades de executar sua solicitação e manipular os dados recebidos, aplicando regras de negócio e validando campos.
 
-## Topics
+## Tópicos
 
-### For everybody
+### Para todos
 
 - <doc:Exploring-task>
 - <doc:Swift-concurrency>
 - <doc:Exploring-combine>
 
-### Changing the behavior of a request
+### Alterando o comportamento de uma solicitação
 
 - <doc:Modifiers-and-Interceptors>
 
-### Monitoring upload and download progress
+### Monitorando o progresso de upload e download
 
 - <doc:Upload-and-download-progress>
