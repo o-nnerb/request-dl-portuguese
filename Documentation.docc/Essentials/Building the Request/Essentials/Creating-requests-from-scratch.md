@@ -52,7 +52,7 @@ As requisições HTTP têm uma série de métodos para realizar diferentes opera
     RequestMethod(.post)
     ```
 
-> Observação: Consulte os [métodos de requisição HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) para saber mais.
+> Note: Consulte os [métodos de requisição HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) para saber mais.
 
 ### Cabeçalhos
 
@@ -104,7 +104,7 @@ A parte mais essencial e crítica de uma requisição HTTP é o corpo. É essenc
     )
     ```
 
-    > Warning: O parâmetro **name** é obrigatório, enquanto o **filename** é opcional.
+    > Important: O parâmetro **name** é obrigatório, enquanto o **filename** é opcional.
 
 Explore mais sobre o corpo da requisição em [Explorando o payload](<doc:Exploring-payload>).
 

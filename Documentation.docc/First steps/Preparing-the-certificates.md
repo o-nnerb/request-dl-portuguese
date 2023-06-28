@@ -40,7 +40,7 @@ Um ponto crucial é baixar toda a hierarquia de certificados, porque ao configur
 
 Neste exemplo, baixamos toda a hierarquia de certificados do servidor. No entanto, temos a opção de usar ``RequestDL/DefaultTrusts`` em conjunto com ``RequestDL/AdditionalTrusts`` para obter um resultado semelhante.
 
-> Observação: É recomendado sempre converter os certificados para o formato PEM, pois isso permite combiná-los em um único arquivo para uso em qualquer lugar.
+> Note: É recomendado sempre converter os certificados para o formato PEM, pois isso permite combiná-los em um único arquivo para uso em qualquer lugar.
 
 #### via Terminal
 

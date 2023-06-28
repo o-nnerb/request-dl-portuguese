@@ -1,100 +1,100 @@
-# Exploring the payload
+# Explorando o payload
 
-The request body supports multiple data types. Learn about all the supported ones.
+O corpo da requisição suporta vários tipos de dados. Saiba mais sobre todos os tipos suportados.
 
-## Overview
+## Visão geral
 
-The possibilities of sending a sequence of bytes in a request are endless. Furthermore, for the server to interpret the received bytes, it uses the value of the `Content-Type` header as it is known.
+As possibilidades de enviar uma sequência de bytes em uma requisição são infinitas. Além disso, para que o servidor interprete os bytes recebidos, ele utiliza o valor do cabeçalho `Content-Type`, conforme é conhecido.
 
-The most common approach is to send a raw sequence of bytes related to a known data type. `application/json` is a frequently used example in mobile applications.
+A abordagem mais comum é enviar uma sequência bruta de bytes relacionados a um tipo de dados conhecido. `application/json` é um exemplo frequentemente usado em aplicativos móveis.
 
-However, a second type of data that appears in some applications is `multipart/form-data`, which has a more complex implementation due to its unique pattern of the data to be sent.
+No entanto, um segundo tipo de dados que aparece em alguns aplicativos é `multipart/form-data`, que possui uma implementação mais complexa devido ao seu padrão exclusivo de dados a serem enviados.
 
-That's why RequestDL provides ``RequestDL/Payload`` and ``RequestDL/Form`` to maximize your calls.
+É por isso que o RequestDL fornece ``RequestDL/Payload`` e ``RequestDL/Form`` para maximizar suas chamadas.
 
-> Tip: Each object has 5 initializers that standardize data configuration in a request: Data, String, URL, Codable, and JSON (also known as [String: Any]).
+> Tip: Cada objeto possui 5 inicializadores que padronizam a configuração dos dados em uma requisição: Data, String, URL, Codable e JSON (também conhecido como [String: Any]).
 
 ### Payload
 
-We can consider ``RequestDL/Payload`` as the primitive type for the bytes to be sent in a request. Keep in mind the following 3 central properties of every payload:
+Podemos considerar ``RequestDL/Payload`` como o tipo primitivo para os bytes a serem enviados em uma requisição. Tenha em mente as seguintes 3 propriedades centrais de cada payload:
 
 1. Data
 
-    Options include `Data`, `String`, `URL`, `Codable`, and `JSON`.
+    As opções incluem `Data`, `String`, `URL`, `Codable` e `JSON`.
 
 2. Content-Type
 
-    It can be customized by specifying a value of type ``RequestDL/ContentType``. Here is a list of default values:
+    Pode ser personalizado especificando um valor do tipo ``RequestDL/ContentType``. Aqui está uma lista de valores padrão:
 
     - Data: `application/octet-stream`
     - String: `text/plain`
-    - URL: Not applicable
+    - URL: Não aplicável
     - Codable: `application/json`
     - JSON: `application/json`
 
 3. Content-Length
 
-    Automatically configured based on the length of the byte sequence to be sent as the body.
+    Configurado automaticamente com base no tamanho da sequência de bytes a ser enviada como corpo.
 
 ### Form
 
-Using the `multipart/form-data` data format for ``RequestDL/Form``, there are several implementations to simplify the process of constructing the request body.
+Usando o formato de dados `multipart/form-data` para ``RequestDL/Form``, existem várias implementações para simplificar o processo de construção do corpo da requisição.
 
-> Important: Declaring an independent ``RequestDL/Form`` makes it behave as the sole object for the body. If you want to specify multiple `form-data`, you **should** group them into a ``RequestDL/FormGroup``.
+> Important: Ao declarar um ``RequestDL/Form`` independente, ele se comporta como o único objeto para o corpo. Se você deseja especificar vários `form-data`, **deve** agrupá-los em um ``RequestDL/FormGroup``.
 
-``RequestDL/Form`` follows the same initialization principles as ``RequestDL/Payload`` with one difference, which is the need to specify the `name` parameter and optionally, the `filename`. This requirement is part of the `form-data` standard definition.
+``RequestDL/Form`` segue os mesmos princípios de inicialização que ``RequestDL/Payload`` com uma diferença, que é a necessidade de especificar o parâmetro `name` e, opcionalmente, o `filename`. Esse requisito faz parte da definição padrão do `form-data`.
 
-Additionally, a powerful feature that can be explored according to the needs of each project and service is the ability to specify additional headers for a single `form-data` using the `headers:` parameter during the initialization of ``RequestDL/Form``.
+Além disso, um recurso poderoso que pode ser explorado de acordo com as necessidades de cada projeto e serviço é a capacidade de especificar cabeçalhos adicionais para um único `form-data` usando o parâmetro `headers:` durante a inicialização de ``RequestDL/Form``.
 
 ### URL Encoded
 
-Both objects support ``RequestDL/URLEncoder``, which operates on the body by applying a specific ``RequestDL/Charset`` and using ``RequestDL/ContentType/formURLEncoded``.
+Ambos os objetos suportam ``RequestDL/URLEncoder``, que opera no corpo, aplicando um ``RequestDL/Charset`` específico e usando ``RequestDL/ContentType/formURLEncoded``.
 
-> Note: The ``RequestDL/Payload`` object has an internal check. If the content type is `application/x-www-form-urlencoded` and the endpoint method is ``RequestDL/HTTPMethod/get`` or ``RequestDL/HTTPMethod/head``, the body is converted into URL parameters when it is in `Codable` or `JSON` format.
+> Note: O objeto ``RequestDL/Payload`` possui uma verificação interna. Se o tipo de conteúdo for `application/x-www-form-urlencoded` e o método de endpoint for ``RequestDL/HTTPMethod/get`` ou ``RequestDL/HTTPMethod/head``, o corpo é convertido em parâmetros de URL quando estiver no formato `Codable` ou `JSON`.
 
-Fine-grained control of object encoding using ``RequestDL/ContentType/formURLEncoded`` is done as follows:
+O controle refinado da codificação do objeto usando ``RequestDL/ContentType/formURLEncoded`` é feito da seguinte maneira:
 
 ```swift
 Payload(userModel, contentType: .formURLEncoded)
     .charset(.utf8)
     .urlEncoder(.init())
 
-// Result: name=John&age=20
+// Resultado: name=John&age=20
 ```
 
-## Topics
+## Tópicos
 
-### Inserting bytes in the request body
+### Inserindo bytes no corpo da requisição
 
 - ``RequestDL/Payload``
 - ``RequestDL/EncodingPayloadError``
 
-### Using the multipart form data
+### Usando o formulário multipart
 
 - ``RequestDL/Form``
 - ``RequestDL/FormGroup``
 
-### Setting content type
+### Definindo o tipo de conteúdo
 
 - ``RequestDL/ContentType``
 
-### Making the body URL encoded
+### Fazendo a codificação do corpo em formato URL
 
 - ``RequestDL/URLEncoder``
 - ``RequestDL/QueryItem``
 - ``RequestDL/URLEncoderError``
 - ``RequestDL/Property/urlEncoder(_:)``
 
-### Specifying the content charset
+### Especificando o conjunto de caracteres do conteúdo
 
 - ``RequestDL/Charset``
 - ``RequestDL/Property/charset(_:)``
 
-### Configure how the data will be uploaded
+### Configurando como os dados serão enviados
 
 - ``RequestDL/Property/payloadChunkSize(_:)``
 - ``RequestDL/Property/payloadPartLength(_:)``
 
-### Setting up the download strategy
+### Configurando a estratégia de leitura
 
 - ``RequestDL/ReadingMode``
