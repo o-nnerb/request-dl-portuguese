@@ -102,7 +102,7 @@ Apesar de ``RequestDL/Property/body-swift.property`` ser chamado constantemente 
 
 Essa regra é necessária para evitar a criação de novos clientes fornecidos pelo `AsyncHTTPClient`. Além disso, se o seu aplicativo permanecer ocioso por um determinado período de tempo, o RequestDL expirará as informações salvas e começará a usar o novo certificado, a menos que medidas sejam tomadas.
 
-## Tópicos
+## Topics
 
 ### Noções básicas sobre certificados
 

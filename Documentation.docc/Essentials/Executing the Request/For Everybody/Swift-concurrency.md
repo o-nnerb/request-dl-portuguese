@@ -50,7 +50,7 @@ Além disso, cada elemento recebido é inserido em uma fila que permanece dispon
 
 > Warning: Uma vez que os objetos ``RequestDL/AsyncResponse`` e ``RequestDL/AsyncBytes`` deixam de existir durante uma requisição, isso pode resultar no cancelamento da operação.
 
-## Tópicos
+## Topics
 
 ### Conhecendo as etapas
 

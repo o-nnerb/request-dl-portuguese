@@ -133,7 +133,7 @@ Saiba mais em:
 - **<doc:Secure-connection>**
 - **<doc:Cache-support>**
 
-## Tópicos
+## Topics
 
 ### O cerne de todas as requisições
 

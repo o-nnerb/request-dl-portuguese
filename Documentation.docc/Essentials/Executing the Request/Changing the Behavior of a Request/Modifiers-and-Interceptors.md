@@ -86,7 +86,7 @@ struct AlwaysPrintInterceptor<Element>: RequestTaskInterceptor {
 
 > Note: O RequestDL fornece alguns interceptadores, que podem ser verificados por meio do enumerador ``RequestDL/Interceptors``.
 
-## Tópicos
+## Topics
 
 ### Modificando a requisição
 

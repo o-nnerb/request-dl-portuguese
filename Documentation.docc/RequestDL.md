@@ -62,7 +62,7 @@ try await DataTask {
 
 Estamos empolgados em expandir esta lista com muitos outros recursos. Comece fazendo sua contribuição em [Discussões](https://github.com/orgs/request-dl/discussions) ou abrindo um PR (Pull Request).
 
-## Tópicos
+## Topics
 
 ### Primeiros passos
 
