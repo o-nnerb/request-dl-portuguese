@@ -1,56 +1,56 @@
-# Preparing the Certificates
+# Preparando os Certificados
 
-Set up all the necessary certificates to ensure secure requests.
+Configure todos os certificados necessários para garantir requisições seguras.
 
-## Overview
+## Visão Geral
 
-The most important configuration required in any application is to apply some security protocols, such as TLS, mTLS, or PSK. Here we will provide detailed instructions on the most basic way to implement these protocols directly in your application.
+A configuração mais importante necessária em qualquer aplicativo é aplicar alguns protocolos de segurança, como TLS, mTLS ou PSK. Aqui, forneceremos instruções detalhadas sobre a forma mais básica de implementar esses protocolos diretamente em seu aplicativo.
 
-We are sharing two methods to obtain server certificates to help you explore the available resources. Additionally, obtaining a server certificate is quite easy nowadays.
+Estamos compartilhando dois métodos para obter certificados de servidor para ajudar você a explorar os recursos disponíveis. Além disso, obter um certificado de servidor é bastante fácil nos dias de hoje.
 
-### Obtaining the Certificate 
+### Obtendo o Certificado
 
-#### via Browser
+#### via Navegador
 
-In this example, we will obtain the DER certificates from the `api.github.com` server for our application.
+Neste exemplo, vamos obter os certificados DER do servidor `api.github.com` para nosso aplicativo.
 
-One crucial point is to download the entire certificate hierarchy because when configuring it in RequestDL or other frameworks like URLSession, the application will compare all the received certificates.
+Um ponto crucial é baixar toda a hierarquia de certificados, porque ao configurá-los no RequestDL ou em outros frameworks como URLSession, o aplicativo irá comparar todos os certificados recebidos.
 
-1. Access `https://api.github.com` and click on the padlock.
+1. Acesse `https://api.github.com` e clique no cadeado.
 
-    ![Screenshot of Safari showing the loaded URL with the padlock highlighted](der.github.1.png)
+    ![Captura de tela do Safari mostrando a URL carregada com o cadeado destacado](der.github.1.png)
 
-2. Click on **Show Certificate**.
+2. Clique em **Mostrar Certificado**.
 
-    ![Screenshot of Safari showing the certificate for the URL with the "Show Certificate" button highlighted](der.github.2.png)
+    ![Captura de tela do Safari mostrando o certificado da URL com o botão "Mostrar Certificado" destacado](der.github.2.png)
 
-3. Select **\*.github.com** and drag the certificate to your desktop.
+3. Selecione **\*.github.com** e arraste o certificado para a área de trabalho.
 
-    ![Screenshot of Safari showing the certificates in use with the certificate icon highlighted](der.github.3.png)
+    ![Captura de tela do Safari mostrando os certificados em uso com o ícone do certificado destacado](der.github.3.png)
 
-4. Repeat the same process for **DigiCert TLS...**.
+4. Repita o mesmo processo para **DigiCert TLS...**.
 
-    ![Screenshot of Safari showing the certificates in use with the certificate icon highlighted](der.github.4.png)
+    ![Captura de tela do Safari mostrando os certificados em uso com o ícone do certificado destacado](der.github.4.png)
 
-5. Repeat the same process for **DigiCert Global...**.
+5. Repita o mesmo processo para **DigiCert Global...**.
 
-    ![Screenshot of Safari showing the certificates in use with the certificate icon highlighted](der.github.5.png)
+    ![Captura de tela do Safari mostrando os certificados em uso com o ícone do certificado destacado](der.github.5.png)
 
-6. Drag the certificates into the **Resources** folder of your project or module.
+6. Arraste os certificados para a pasta **Resources** do seu projeto ou módulo.
 
-In this example, we downloaded the entire certificate hierarchy from the server. However, we have the option to use ``RequestDL/DefaultTrusts`` together with ``RequestDL/AdditionalTrusts`` to achieve a similar result.
+Neste exemplo, baixamos toda a hierarquia de certificados do servidor. No entanto, temos a opção de usar ``RequestDL/DefaultTrusts`` em conjunto com ``RequestDL/AdditionalTrusts`` para obter um resultado semelhante.
 
-> Note: It is recommended to always convert the certificates to PEM format, as it allows you to combine them into a single file for use anywhere.
+> Observação: É recomendado sempre converter os certificados para o formato PEM, pois isso permite combiná-los em um único arquivo para uso em qualquer lugar.
 
 #### via Terminal
 
-Another method is to use the `openssl` command in your terminal. By using the command below, you can obtain the certificate in **PEM** format.
+Outro método é usar o comando `openssl` no seu terminal. Ao usar o comando abaixo, você pode obter o certificado em formato **PEM**.
 
-1. Open the terminal.
+1. Abra o terminal.
 
-2. Enter the command `openssl s_client -connect api.github.com:443`.
+2. Digite o comando `openssl s_client -connect api.github.com:443`.
 
-3. Look for the `BEGIN CERTIFICATE` and `END CERTIFICATE` in the output:
+3. Procure por `BEGIN CERTIFICATE` e `END CERTIFICATE` na saída:
     ```
     -----BEGIN CERTIFICATE-----
     ***
@@ -59,27 +59,27 @@ Another method is to use the `openssl` command in your terminal. By using the co
     -----END CERTIFICATE-----
     ```
 
-4. Copy the pattern above and paste it into a file.
+4. Copie o padrão acima e cole-o em um arquivo.
 
-5. Save it as **\*.github.com.pem**.
+5. Salve-o como **\*.github.com.pem**.
 
-6. Drag the generated file into the **Resources** folder of your project or module.
+6. Arraste o arquivo gerado para a pasta **Resources** do seu projeto ou módulo.
 
-In this example, we only downloaded the main server certificate without downloading the complete hierarchy. You can find other examples in the community explaining how to do this via the terminal.
+Neste exemplo, baixamos apenas o certificado principal do servidor sem baixar a hierarquia completa. Você pode encontrar outros exemplos na comunidade que explicam como fazer isso via terminal.
 
-### Configuring GithubAPI
+### Configurando GithubAPI
 
-If you have read **[Creating the project property](<doc:Creating-the-project-property>)**, the configuration example we will be using is a continuation of the GithubAPI implementation.
+Se você leu **[Criando a propriedade do projeto](<doc:Creating-the-project-property>)**, o exemplo de configuração que usaremos é uma continuação da implementação do GithubAPI.
 
-#### Using DER Certificates Individually
+#### Usando Certificados DER Individualmente
 
-```swift 
+```swift
 import RequestDL
 
 struct GithubAPI: Property {
 
     var body: some Property {
-        // Previous code
+        // Código anterior
         SecureConnection {
             Trusts {
                 Certificate("DigiCert Global...", format: .der)
@@ -91,15 +91,15 @@ struct GithubAPI: Property {
 }
 ```
 
-#### Using PEM Certificates
+#### Usando Certificados PEM
 
-```swift 
+```swift
 import RequestDL
 
 struct GithubAPI: Property {
 
     var body: some Property {
-        // Previous code
+        // Código anterior
         SecureConnection {
             Trusts {
                 Certificate("*.github.com", format: .pem)
@@ -109,8 +109,8 @@ struct GithubAPI: Property {
 }
 ```
 
-## Next steps
+## Próximos passos
 
-These were some basic examples of how to configure certificates to validate the server during a request. By doing this, you will be using TLS security in your network layer.
+Esses foram alguns exemplos básicos de como configurar certificados para validar o servidor durante uma requisição. Ao fazer isso, você estará usando segurança TLS em sua camada de rede.
 
-Although it may not be the most secure option, we also support implementing mTLS or PSK. Continue exploring our documentation for more relevant information.
+Embora possa não ser a opção mais segura, também oferecemos suporte para implementar mTLS ou PSK. Continue explorando nossa documentação para obter informações mais relevantes.
