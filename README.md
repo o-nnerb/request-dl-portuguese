@@ -2,7 +2,7 @@
 [![Platform Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Frequest-dl%2Frequest-dl%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/request-dl/request-dl)
 [![codecov](https://codecov.io/gh/request-dl/request-dl/branch/main/graph/badge.svg?token=MW5J053T85)](https://codecov.io/gh/request-dl/request-dl)
 
-# [https://github.com/request-dl/request-dl](RequestDL)
+# [RequestDL](https://github.com/request-dl/request-dl)
 
 > Graças ao **Mike Lewis**, o progresso foi integrado perfeitamente nesta biblioteca, proporcionando uma experiência simples e simplificada.
 
