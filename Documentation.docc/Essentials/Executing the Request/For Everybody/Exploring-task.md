@@ -1,25 +1,25 @@
-# Exploring the task diversity
+# Explorando a diversidade de tarefas
 
-Discover the available variations to execute a request according to the specific needs of each endpoint.
+Descubra as variações disponíveis para executar uma requisição de acordo com as necessidades específicas de cada endpoint.
 
-## Overview
+## Visão geral
 
-The construction of requests in RequestDL was shaped according to Foundation concepts. Combining with the implementation of ``RequestDL/RequestTask`` and async/await, it was possible to provide ``RequestDL/UploadTask``, ``RequestDL/DownloadTask``, and ``RequestDL/DataTask``.
+A construção de requisições no RequestDL foi moldada de acordo com os conceitos da Foundation. Combinando com a implementação de ``RequestDL/RequestTask`` e async/await, foi possível fornecer ``RequestDL/UploadTask``, ``RequestDL/DownloadTask`` e ``RequestDL/DataTask``.
 
-Each form of creating a request has a unique purpose, which is directly related to the result that these objects return.
+Cada forma de criar uma requisição tem um propósito único, que está diretamente relacionado ao resultado que esses objetos retornam.
 
 ### UploadTask
 
-`UploadTask` was developed to allow the use of ``RequestDL/AsyncResponse`` and obtain information about each byte sent during the upload process. This is advantageous if you are considering implementing a progress bar that informs the user about the upload status.
+`UploadTask` foi desenvolvido para permitir o uso de ``RequestDL/AsyncResponse`` e obter informações sobre cada byte enviado durante o processo de upload. Isso é vantajoso se você estiver considerando implementar uma barra de progresso que informa o usuário sobre o status do upload.
 
-> Tip: You have fine-grained control over the upload with ``RequestDL/Property/payloadChunkSize(_:)``. Just specify it during the request specification to get the upload process with ``RequestDL/RequestTask/progress(upload:)`` in the way you prefer.
+> Dica: Você tem controle detalhado sobre o upload com ``RequestDL/Property/payloadChunkSize(_:)``. Basta especificá-lo durante a especificação da requisição para obter o processo de upload com ``RequestDL/RequestTask/progress(upload:)`` da maneira que preferir.
 
-Here's an example without abstracting the solution so you can learn the most basic way to use ``RequestDL/UploadTask``:
+Aqui está um exemplo sem abstrair a solução para que você possa aprender a maneira mais básica de usar ``RequestDL/UploadTask``:
 
 ```swift
 let response = try await UploadTask {
     BaseURL("apple.com")
-    // Other specifications
+    // Outras especificações
     Payload(url: video, contentType: .mp4)
         .payloadChunkSize(8_192)
 }
@@ -30,27 +30,27 @@ for try await step in response {
     case .upload(let step):
         print(step.chunkSize, step.totalSize)
     case .download(let step):
-        // Handle download step
+        // Lidar com o passo de download
     }
 }
 ```
 
-Learn more about using [async/await](<doc:Swift-concurrency>) from the beginning.
+Saiba mais sobre o uso de [async/await](<doc:Swift-concurrency>) desde o início.
 
-Since every request always starts with the upload process, followed by the download, using ``RequestDL/UploadTask`` gives you access to all the stages of a request.
+Como toda requisição sempre começa com o processo de upload, seguido pelo download, o uso de ``RequestDL/UploadTask`` dá acesso a todas as etapas de uma requisição.
 
 ### DownloadTask
 
-``RequestDL/DownloadTask`` results in ``RequestDL/ResponseHead`` and ``RequestDL/AsyncBytes``, disregarding the upload information. Through these objects, it is already possible to obtain all the data of the request, whether it was successful or not, and also monitor the byte transmission to the server, thanks to `async/await`.
+``RequestDL/DownloadTask`` resulta em ``RequestDL/ResponseHead`` e ``RequestDL/AsyncBytes``, ignorando as informações de upload. Através desses objetos, já é possível obter todos os dados da requisição, seja bem-sucedida ou não, e também monitorar a transmissão de bytes para o servidor, graças ao `async/await`.
 
-> Tip: You can control how bytes are read by the client through ``RequestDL/ReadingMode``, which should be specified during request construction. This way, you can track the download progress using ``RequestDL/RequestTask/progress(download:)-20p6u``.
+> Dica: Você pode controlar como os bytes são lidos pelo cliente através de ``RequestDL/ReadingMode``, que deve ser especificado durante a construção da requisição. Dessa forma, você pode acompanhar o progresso do download usando ``RequestDL/RequestTask/progress(download:)-20p6u``.
 
-Here's an example without available abstractions to explore the usage of ``RequestDL/DownloadTask``:
+Aqui está um exemplo sem abstrações disponíveis para explorar o uso de ``RequestDL/DownloadTask``:
 
 ```swift
 let downloadStep = try await DownloadTask {
     BaseURL("apple.com")
-    // Other specifications
+    // Outras especificações
     Payload(url: video, contentType: .mp4)
         .payloadChunkSize(8_192)
 }
@@ -63,55 +63,55 @@ for try await bytes in asyncBytes {
 }
 ```
 
-When using ``RequestDL/DownloadTask``, you need to implement a way to handle and combine the received bytes to obtain the complete `Data`.
+Ao usar ``RequestDL/DownloadTask``, você precisa implementar uma maneira de lidar e combinar os bytes recebidos para obter os dados completos.
 
 ### DataTask
 
-``RequestDL/DataTask`` is the default way to make requests in RequestDL. The result is a ``RequestDL/TaskResult`` encapsulating the `Data`. If the endpoint you are consuming doesn't have any rules for uploading or downloading information, you can use it as the recommended option.
+``RequestDL/DataTask`` é a forma padrão de fazer requisições no RequestDL. O resultado é um ``RequestDL/TaskResult`` encapsulando os `Data`. Se o endpoint que você está consumindo não tiver regras para enviar ou baixar informações, você pode usá-lo como a opção recomendada.
 
-Here's the standard usage:
+Aqui está o uso padrão:
 
 ```swift
 let result = try await DataTask {
-    // Property specifications
+    // Especificações da propriedade
 }
 .result()
 
 print(result.payload)
 ```
 
-> Tip: Explore the use of [modifiers and interceptors](<doc:Modifiers-and-Interceptors>) to enhance your requests.
+> Dica: Explore o uso de [modificadores e interceptadores](<doc:Modifiers-and-Interceptors>) para aprimorar suas requisições.
 
 ### GroupTask
 
-``RequestDL/GroupTask`` is useful for grouping multiple simultaneous calls into a single one. To use it, you need to have a sequence that will be converted into a ``RequestDL/RequestTask``.
+``RequestDL/GroupTask`` é útil para agrupar várias chamadas simultâneas em uma única chamada. Para usá-lo, você precisa ter uma sequência que será convertida em um ``RequestDL/RequestTask``.
 
-Then, for each item in the sequence, you will have access to its individual result through ``RequestDL/GroupTask/result()``, which is a dictionary where the keys are identified by the sequence element.
+Em seguida, para cada item na sequência, você terá acesso ao resultado individual por meio de ``RequestDL/GroupTask/result()``, que é um dicionário em que as chaves são identificadas pelo elemento da sequência.
 
-> Warning: The element must conform to the `Hashable` protocol.
+> Aviso: O elemento deve conformar-se ao protocolo `Hashable`.
 
-## Topics
+## Tópicos
 
-### The basics
+### O básico
 
 - ``RequestDL/RequestTask``
 - ``RequestDL/TaskResultPrimitive``
 - ``RequestDL/TaskError``
 - ``RequestDL/TaskResult``
 
-### Meet the tasks
+### Conhecendo as tarefas
 
 - ``RequestDL/UploadTask``
 - ``RequestDL/DownloadTask``
 - ``RequestDL/DataTask``
 - ``RequestDL/RequestFailureError``
 
-### Performing multiple tasks
+### Realizando múltiplas tarefas
 
 - ``RequestDL/GroupTask``
 - ``RequestDL/GroupResult``
 
-### Discovering the response
+### Descobrindo a resposta
 
 - ``RequestDL/ResponseHead``
 - ``RequestDL/ResponseHead/Status-swift.struct``
@@ -119,18 +119,18 @@ Then, for each item in the sequence, you will have access to its individual resu
 - ``RequestDL/StatusCode``
 - ``RequestDL/StatusCodeSet``
 
-### Receiving the headers
+### Recebendo os cabeçalhos
 
 - ``RequestDL/HTTPHeaders``
 
-### Modifying and intercepting the responses
+### Modificando e interceptando as respostas
 
 - <doc:Modifiers-and-Interceptors>
 
-### Monitoring the progress
+### Monitorando o progresso
 
 - <doc:Upload-and-download-progress>
 
-### Testing and debugging
+### Testando e depurando
 
 - ``RequestDL/MockedTask``
