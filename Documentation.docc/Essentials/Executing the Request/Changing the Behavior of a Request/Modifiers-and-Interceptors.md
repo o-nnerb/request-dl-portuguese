@@ -60,7 +60,7 @@ Algumas ideias interessantes para `Modificador` específico da API:
     }
     ```
 
-> Observação: O RequestDL fornece uma variedade de modificadores implementados, que podem ser verificados por meio do enumerador ``RequestDL/Modifiers``.
+> Note: O RequestDL fornece uma variedade de modificadores implementados, que podem ser verificados por meio do enumerador ``RequestDL/Modifiers``.
 
 ### Interceptador de tarefa
 
@@ -84,7 +84,7 @@ struct AlwaysPrintInterceptor<Element>: RequestTaskInterceptor {
 }
 ```
 
-> Observação: O RequestDL fornece alguns interceptadores, que podem ser verificados por meio do enumerador ``RequestDL/Interceptors``.
+> Note: O RequestDL fornece alguns interceptadores, que podem ser verificados por meio do enumerador ``RequestDL/Interceptors``.
 
 ## Tópicos
 

@@ -12,7 +12,7 @@ Cada forma de criar uma requisição tem um propósito único, que está diretam
 
 `UploadTask` foi desenvolvido para permitir o uso de ``RequestDL/AsyncResponse`` e obter informações sobre cada byte enviado durante o processo de upload. Isso é vantajoso se você estiver considerando implementar uma barra de progresso que informa o usuário sobre o status do upload.
 
-> Dica: Você tem controle detalhado sobre o upload com ``RequestDL/Property/payloadChunkSize(_:)``. Basta especificá-lo durante a especificação da requisição para obter o processo de upload com ``RequestDL/RequestTask/progress(upload:)`` da maneira que preferir.
+> Tip: Você tem controle detalhado sobre o upload com ``RequestDL/Property/payloadChunkSize(_:)``. Basta especificá-lo durante a especificação da requisição para obter o processo de upload com ``RequestDL/RequestTask/progress(upload:)`` da maneira que preferir.
 
 Aqui está um exemplo sem abstrair a solução para que você possa aprender a maneira mais básica de usar ``RequestDL/UploadTask``:
 
@@ -43,7 +43,7 @@ Como toda requisição sempre começa com o processo de upload, seguido pelo dow
 
 ``RequestDL/DownloadTask`` resulta em ``RequestDL/ResponseHead`` e ``RequestDL/AsyncBytes``, ignorando as informações de upload. Através desses objetos, já é possível obter todos os dados da requisição, seja bem-sucedida ou não, e também monitorar a transmissão de bytes para o servidor, graças ao `async/await`.
 
-> Dica: Você pode controlar como os bytes são lidos pelo cliente através de ``RequestDL/ReadingMode``, que deve ser especificado durante a construção da requisição. Dessa forma, você pode acompanhar o progresso do download usando ``RequestDL/RequestTask/progress(download:)-20p6u``.
+> Tip: Você pode controlar como os bytes são lidos pelo cliente através de ``RequestDL/ReadingMode``, que deve ser especificado durante a construção da requisição. Dessa forma, você pode acompanhar o progresso do download usando ``RequestDL/RequestTask/progress(download:)-20p6u``.
 
 Aqui está um exemplo sem abstrações disponíveis para explorar o uso de ``RequestDL/DownloadTask``:
 
@@ -80,7 +80,7 @@ let result = try await DataTask {
 print(result.payload)
 ```
 
-> Dica: Explore o uso de [modificadores e interceptadores](<doc:Modifiers-and-Interceptors>) para aprimorar suas requisições.
+> Tip: Explore o uso de [modificadores e interceptadores](<doc:Modifiers-and-Interceptors>) para aprimorar suas requisições.
 
 ### GroupTask
 
@@ -88,7 +88,7 @@ print(result.payload)
 
 Em seguida, para cada item na sequência, você terá acesso ao resultado individual por meio de ``RequestDL/GroupTask/result()``, que é um dicionário em que as chaves são identificadas pelo elemento da sequência.
 
-> Aviso: O elemento deve conformar-se ao protocolo `Hashable`.
+> Warning: O elemento deve conformar-se ao protocolo `Hashable`.
 
 ## Tópicos
 

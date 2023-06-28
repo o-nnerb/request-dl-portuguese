@@ -34,13 +34,13 @@ Este código nos permite não apenas usar `await` durante a especificação da r
 
 ``RequestTask`` possui certa flexibilidade em relação ao `Element` retornado na execução do método ``RequestTask/result()``. Isso possibilitou a implementação de ``RequestDL/UploadTask``, ``RequestDL/DownloadTask`` e ``RequestDL/DataTask``.
 
-> Dica: Saiba mais sobre as tarefas em [Explorando a diversidade de tarefas](<doc:Exploring-task>).
+> Tip: Saiba mais sobre as tarefas em [Explorando a diversidade de tarefas](<doc:Exploring-task>).
 
 ``RequestDL/AsyncResponse`` é o objeto central da requisição. Com ele, obtemos as etapas para saber a quantidade de bytes enviados e os bytes que estamos recebendo.
 
 ``RequestDL/AsyncBytes`` nos informa a quantidade de bytes recebidos de forma assíncrona e também nos permite saber a quantidade que iremos receber através da propriedade ``RequestDL/AsyncBytes/totalSize``.
 
-> Importante: Ambos os objetos são uma `AsyncSequence` e devem ser usados em um loop `for try await _`.
+> Important: Ambos os objetos são uma `AsyncSequence` e devem ser usados em um loop `for try await _`.
 
 ### Pontos de atenção
 
@@ -48,7 +48,7 @@ Os objetos ``RequestDL/AsyncResponse`` e ``RequestDL/AsyncBytes`` funcionam como
 
 Além disso, cada elemento recebido é inserido em uma fila que permanece disponível até que o objeto assíncrono deixe de existir. Portanto, é possível ter vários loops `for try await _` no código para observar as sequências quantas vezes forem necessárias.
 
-> Atenção: Uma vez que os objetos ``RequestDL/AsyncResponse`` e ``RequestDL/AsyncBytes`` deixam de existir durante uma requisição, isso pode resultar no cancelamento da operação.
+> Warning: Uma vez que os objetos ``RequestDL/AsyncResponse`` e ``RequestDL/AsyncBytes`` deixam de existir durante uma requisição, isso pode resultar no cancelamento da operação.
 
 ## Tópicos
 
