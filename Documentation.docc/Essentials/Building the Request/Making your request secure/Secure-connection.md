@@ -78,7 +78,7 @@ Using shared symmetric keys between the server and the client, PSK is a secure w
 
 The configuration is simple and only requires implementing the ``SSLPSKIdentityResolver``. When using it in the ``Property``, you should secure the instance of the implemented resolver using ``StoredObject`` to optimize the code.
 
-```swift 
+```swift
 struct GithubAPI: Property {
 
     @StoredObject var psk = GithubPSKResolver()
@@ -92,7 +92,7 @@ struct GithubAPI: Property {
 }
 ```
 
-- Warning: You should exclusively choose either Trust/Client Authorization or PSK. Defining both in the same request can result in unexpected behavior.
+> Warning: You should exclusively choose either Trust/Client Authorization or PSK. Defining both in the same request can result in unexpected behavior.
 
 ### Optimizations
 
@@ -100,7 +100,7 @@ Despite the fact that ``RequestDL/Property/body-swift.property`` is called const
 
 > Warning: If the certificates are updated at runtime, RequestDL will not automatically switch to the new version. Therefore, when updating the certificate, change the file name to one that has not been used before.
 
-This rule is necessary to avoid the instantiation of new clients provided by `AsyncHTTPClient`. Additionally, if your application remains idle for a certain period of time, RequestDL expires the saved information and then starts using the new certificate, unless measures are taken. 
+This rule is necessary to avoid the instantiation of new clients provided by `AsyncHTTPClient`. Additionally, if your application remains idle for a certain period of time, RequestDL expires the saved information and then starts using the new certificate, unless measures are taken.
 
 ## Topics
 
