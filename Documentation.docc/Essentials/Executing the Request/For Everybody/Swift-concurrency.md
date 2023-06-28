@@ -1,26 +1,26 @@
-# Using Swift Concurrency from beginning
+# Usando Swift Concurrency desde o início
 
-Discover all the available resources to use async/await from the beginning.
+Descubra todos os recursos disponíveis para usar async/await desde o início.
 
-## Overview
+## Visão geral
 
-Built from the ground up with async/await in mind, RequestDL always internally uses asynchronous operations, thread locks, and Sendable.
+Construído desde o início com async/await em mente, o RequestDL sempre usa operações assíncronas internamente, travas de thread e Sendable.
 
-SwiftNIO and AsyncHTTPClient also constantly send and receive request data in packets, including both headers and the body.
+O SwiftNIO e o AsyncHTTPClient também enviam e recebem constantemente dados de requisição em pacotes, incluindo cabeçalhos e corpo.
 
-By combining the concepts of async/await with the tools provided by SwiftNIO and AsyncHTTPClient, the concept of steps represented by ``RequestDL/UploadStep``, ``RequestDL/DownloadStep``, and ``RequestDL/ResponseStep`` was implemented.
+Ao combinar os conceitos de async/await com as ferramentas fornecidas pelo SwiftNIO e AsyncHTTPClient, foi implementado o conceito de etapas representadas por ``RequestDL/UploadStep``, ``RequestDL/DownloadStep`` e ``RequestDL/ResponseStep``.
 
-### Building the request
+### Construindo a requisição
 
-Although the focus is on using async/await in request execution, it is also possible to use asynchronous code during request specification.
+Embora o foco esteja no uso de async/await na execução da requisição, também é possível usar código assíncrono durante a especificação da requisição.
 
-Designed for cases when we have a service that is used only to specify a request field, the need for an object that provides such support arose.
+Projetado para casos em que temos um serviço que é usado apenas para especificar um campo da requisição, surgiu a necessidade de um objeto que forneça esse suporte.
 
 ```swift
 struct GithubAPI: Property {
 
     var body: some Property {
-        // Github API common properties
+        // Propriedades comuns da API do Github
         AsyncProperty {
             Authorization(.bearer, token: try await tokenService.getToken())
         }
@@ -28,37 +28,37 @@ struct GithubAPI: Property {
 }
 ```
 
-This code allows us not only to use `await` during request specification, but also `try`.
+Este código nos permite não apenas usar `await` durante a especificação da requisição, mas também `try`.
 
-### Executing the request
+### Executando a requisição
 
-``RequestTask`` has some flexibility regarding the `Element` returned in the ``RequestTask/result()`` method execution. This enabled the implementation of ``RequestDL/UploadTask``, ``RequestDL/DownloadTask``, and ``RequestDL/DataTask``.
+``RequestTask`` possui certa flexibilidade em relação ao `Element` retornado na execução do método ``RequestTask/result()``. Isso possibilitou a implementação de ``RequestDL/UploadTask``, ``RequestDL/DownloadTask`` e ``RequestDL/DataTask``.
 
-> Tip: Learn more about tasks in [Exploring the task diversity](<doc:Exploring-task>).
+> Dica: Saiba mais sobre as tarefas em [Explorando a diversidade de tarefas](<doc:Exploring-task>).
 
-``RequestDL/AsyncResponse`` is the central object of the request. With it, we obtain the steps to know the amount of bytes sent and the bytes we are receiving.
+``RequestDL/AsyncResponse`` é o objeto central da requisição. Com ele, obtemos as etapas para saber a quantidade de bytes enviados e os bytes que estamos recebendo.
 
-``RequestDL/AsyncBytes`` informs us of the amount of bytes received asynchronously and also allows us to know the amount we will receive through the ``RequestDL/AsyncBytes/totalSize`` property.
+``RequestDL/AsyncBytes`` nos informa a quantidade de bytes recebidos de forma assíncrona e também nos permite saber a quantidade que iremos receber através da propriedade ``RequestDL/AsyncBytes/totalSize``.
 
-> Important: Both objects are an `AsyncSequence` and should be used in a `for try await _` loop.
+> Importante: Ambos os objetos são uma `AsyncSequence` e devem ser usados em um loop `for try await _`.
 
-### Points of attention
+### Pontos de atenção
 
-``RequestDL/AsyncResponse`` and ``RequestDL/AsyncBytes`` objects work as an open stream that receives data regardless of who is listening.
+Os objetos ``RequestDL/AsyncResponse`` e ``RequestDL/AsyncBytes`` funcionam como um fluxo aberto que recebe dados independentemente de quem está ouvindo.
 
-In addition, each received element is inserted into a queue that remains available until the asynchronous object ceases to exist. Therefore, it is possible to have numerous `for try await _` loops in the code to observe the sequences as many times as necessary.
+Além disso, cada elemento recebido é inserido em uma fila que permanece disponível até que o objeto assíncrono deixe de existir. Portanto, é possível ter vários loops `for try await _` no código para observar as sequências quantas vezes forem necessárias.
 
-> Warning: Once the ``RequestDL/AsyncResponse`` and ``RequestDL/AsyncBytes`` objects cease to exist during a request, this may result in the operation being canceled.
+> Atenção: Uma vez que os objetos ``RequestDL/AsyncResponse`` e ``RequestDL/AsyncBytes`` deixam de existir durante uma requisição, isso pode resultar no cancelamento da operação.
 
-## Topics
+## Tópicos
 
-### Meet steps
+### Conhecendo as etapas
 
 - ``RequestDL/UploadStep``
 - ``RequestDL/DownloadStep``
 - ``RequestDL/ResponseStep``
 
-### Discover the sequences
+### Descobrindo as sequências
 
 - ``RequestDL/AsyncResponse``
 - ``RequestDL/AsyncBytes``
