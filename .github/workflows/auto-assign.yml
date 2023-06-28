@@ -19,4 +19,4 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           assignees: brennobemoura
           numOfAssignee: 1
-          allowSelfAssign: false
+          allowSelfAssign: true
