@@ -1,29 +1,29 @@
 # ``RequestDL``
 
-A network layer written in Swift based on the declarative programming paradigm.
+Uma camada de rede escrita em Swift baseada no paradigma de programação declarativa.
 
 @Metadata {
     @PageImage(
-        purpose: icon, 
-        source: "tucano", 
-        alt: "A technology icon representing the RequestDL framework.")
-    
+        purpose: icon,
+        source: "tucano",
+        alt: "Um ícone de tecnologia representando o framework RequestDL.")
+
     @PageColor(blue)
 }
 
-## Overview
+## Visão Geral
 
-RequestDL aims to provide a comprehensive API for developing applications that consume network services. At its core, RequestDL is built on Apple's **AsyncHTTPClient**, which in turn is based on **SwiftNIO**.
+O RequestDL tem como objetivo fornecer uma API abrangente para o desenvolvimento de aplicativos que consomem serviços de rede. Em sua essência, o RequestDL é construído sobre o **AsyncHTTPClient** da Apple, que, por sua vez, é baseado no **SwiftNIO**.
 
-With these foundations and leveraging modern networking techniques, along with extensive integration provided by Apple through these two modules, RequestDL can accomplish a great deal. All of this is achieved using a simplified and concise syntax.
+Com essas bases e aproveitando as técnicas modernas de networking, juntamente com a extensa integração fornecida pela Apple por meio desses dois módulos, o RequestDL pode realizar muito. Tudo isso é alcançado usando uma sintaxe simplificada e concisa.
 
-### Where to start?
+### Por onde começar?
 
-RequestDL is divided into two main parts: (a) ``RequestDL/Property``; and (b) ``RequestDL/RequestTask``.
+O RequestDL é dividido em duas partes principais: (a) ``RequestDL/Property``; e (b) ``RequestDL/RequestTask``.
 
-#### The Property protocol
+#### O protocolo Property
 
-This part is related to request construction, providing various methods and objects to specify the URL, payload, and headers. The ``Property`` utilizes the opaque type `some` to allow the implementation of declarative blocks that are compiled with the help of ``RequestDL/PropertyBuilder``, an `@resultBuilder`.
+Esta parte está relacionada à construção da requisição, fornecendo vários métodos e objetos para especificar a URL, o payload e os headers. A ``Property`` utiliza o tipo opaco `some` para permitir a implementação de blocos declarativos que são compilados com a ajuda do ``RequestDL/PropertyBuilder``, um `@resultBuilder`.
 
 ```swift
 @PropertyBuilder
@@ -37,39 +37,39 @@ func appleWebsite() -> some Property {
 }
 ```
 
-#### The RequestTask protocol
+#### O protocolo RequestTask
 
-This protocol is part of the request result processing. Thanks to async/await, we have the possibility of receiving the data through an `AsyncSequence` as well as the `Data` containing the raw bytes. Additionally, we can use ``RequestDL/RequestTaskModifier`` and ``RequestDL/RequestTaskInterceptor`` to perform various types of operations. The request is finalized using the ``RequestDL/RequestTask/result()`` method.
+Este protocolo faz parte do processamento do resultado da requisição. Graças ao async/await, temos a possibilidade de receber os dados por meio de uma `AsyncSequence`, bem como os `Data` contendo os bytes brutos. Além disso, podemos usar o ``RequestDL/RequestTaskModifier`` e ``RequestDL/RequestTaskInterceptor`` para realizar vários tipos de operações. A requisição é finalizada usando o método ``RequestDL/RequestTask/result()``.
 
 ```swift
 try await DataTask {
     BaseURL("apple.com")
-    // Other properties
+    // Outras propriedades
 }
 .result()
 ```
 
-### Features
+### Recursos
 
-- [x] [Declarative request builder](<doc:Creating-requests-from-scratch>);
+- [x] [Construtor declarativo de requisições](<doc:Creating-requests-from-scratch>);
 - [x] [mTLS / TLS / SSL / PSK](<doc:Secure-connection>);
 - [x] [JSON / Codable / Multipart / URL Encoded](<doc:Exploring-payload>);
 - [x] [UploadTask / DownloadTask / DataTask / MockedTask](<doc:Exploring-task>);
-- [x] [Modifiers & Interceptors](<doc:Modifiers-and-Interceptors>); 
-- [x] [Upload & Download progress](<doc:Upload-and-download-progress>);
-- [x] [Swift Concurrency](<doc:Swift-concurrency>);
-- [x] [Combine support](<doc:Exploring-combine>);
+- [x] [Modificadores e Interceptadores](<doc:Modifiers-and-Interceptors>);
+- [x] [Progresso de upload e download](<doc:Upload-and-download-progress>);
+- [x] [Concorrência do Swift](<doc:Swift-concurrency>);
+- [x] [Suporte ao Combine](<doc:Exploring-combine>);
 
-We are excited to expand this list with many other features. Start by making your contribution in [Discussions](https://github.com/orgs/request-dl/discussions) or by opening a PR (Pull Request).
+Estamos empolgados em expandir esta lista com muitos outros recursos. Comece fazendo sua contribuição em [Discussões](https://github.com/orgs/request-dl/discussions) ou abrindo um PR (Pull Request).
 
-## Topics
+## Tópicos
 
-### First steps
+### Primeiros passos
 
 - <doc:Creating-the-project-property>
 - <doc:Preparing-the-certificates>
 
-### Essentials
+### Essenciais
 
 - <doc:Building-the-request>
 - <doc:Executing-the-request>

@@ -1,19 +1,17 @@
-# Building the request
+# Construindo a solicitação
 
-Explore the various types and configurations available to make your request.  
+Explore os diversos tipos e configurações disponíveis para fazer sua solicitação.
 
-## Topics
+## Tópicos
 
-### Essentials
+### Fundamentos
 
 - <doc:Creating-requests-from-scratch>
 - <doc:Property-state>
 - <doc:Exploring-payload>
 
-### Making your request secure
+### Tornando sua solicitação segura
 
 - <doc:Secure-connection>
 
-### Working with cache
-
-- <doc:Cache-support>
+### Trabalhando com cache

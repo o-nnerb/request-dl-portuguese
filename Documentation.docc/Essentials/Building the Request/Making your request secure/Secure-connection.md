@@ -1,32 +1,32 @@
-# Adding a secure connection protocol
+# Adicionando um protocolo de conexão segura
 
-Explore the different methods to maintain a secure connection with the server and implement the one that best suits your business needs.
+Explore os diferentes métodos para manter uma conexão segura com o servidor e implemente aquele que melhor se adapte às necessidades do seu negócio.
 
-## Overview
+## Visão geral
 
-Having and maintaining a secure connection is extremely critical in any application and is essential for software security and integrity. SwiftNIO and AsyncHTTPClient make the necessary TLS configuration super easy by providing simple certificate handling.
+Ter e manter uma conexão segura é extremamente crítico em qualquer aplicativo e é essencial para a segurança e integridade do software. O SwiftNIO e o AsyncHTTPClient tornam a configuração necessária do TLS super fácil, fornecendo um manuseio simples de certificados.
 
-As supported by SwiftNIO, we have the following definitions:
+Conforme suportado pelo SwiftNIO, temos as seguintes definições:
 
-1. Trust
+1. Trust (Confiança)
 
-   It is validated after receiving the server's certificate to determine whether it is trustworthy or not to maintain the connection and proceed with the ongoing request.
+   É validado após receber o certificado do servidor para determinar se é confiável ou não para manter a conexão e prosseguir com a requisição em andamento.
 
-2. Client Authorization
+2. Client Authorization (Autorização do Cliente)
 
-   A local certificate is sent to the server to establish client trust and retrieve the resulting data from the API process.
+   Um certificado local é enviado ao servidor para estabelecer a confiança do cliente e obter os dados resultantes do processo da API.
 
-3. PSK
+3. PSK (Pre-Shared Key)
 
-   An alternative form of authentication where the client and server share a symmetric key to proceed with the current request.
+   Uma forma alternativa de autenticação em que o cliente e o servidor compartilham uma chave simétrica para prosseguir com a requisição atual.
 
-> Warning: Any configuration involving TLS should be performed within the ``RequestDL/SecureConnection``. Otherwise, RequestDL will not be able to recognize the declared code.
+> Warning: Qualquer configuração envolvendo TLS deve ser feita dentro do ``RequestDL/SecureConnection``. Caso contrário, o RequestDL não será capaz de reconhecer o código declarado.
 
-### Trust
+### Trust (Confiança)
 
-There are two layers of server validation configuration. The first layer is the base certificates to trust the server we are connecting to. The second layer is additional certificates that are also used for the same purpose.
+Existem duas camadas de configuração de validação do servidor. A primeira camada são os certificados base para confiar no servidor ao qual estamos conectando. A segunda camada são certificados adicionais que também são usados para o mesmo propósito.
 
-There are two ways to configure the base certificates: one using ``RequestDL/DefaultTrusts`` and the other using ``RequestDL/Trusts``. The first one uses system certificates, while the second one completely replaces the certificate validation to use only the specified ones.
+Existem duas maneiras de configurar os certificados base: uma usando ``RequestDL/DefaultTrusts`` e outra usando ``RequestDL/Trusts``. A primeira usa os certificados do sistema, enquanto a segunda substitui completamente a validação do certificado para usar apenas os especificados.
 
 #### DefaultTrusts
 
@@ -43,17 +43,17 @@ Trusts {
 }
 ```
 
-After defining the base certificates, you need to specify additional certificates to be used as alternative server validation. It is optional and can be explored depending on the server's specifications.
+Após definir os certificados base, você precisa especificar certificados adicionais a serem usados como validação alternativa do servidor. Isso é opcional e pode ser explorado dependendo das especificações do servidor.
 
-> Tip: In an application where security is not a priority, you can combine ``RequestDL/DefaultTrusts`` with ``RequestDL/AdditionalTrusts`` to include both system certificates and the ones you want to trust.
+> Tip: Em um aplicativo onde a segurança não é uma prioridade, você pode combinar ``RequestDL/DefaultTrusts`` com ``RequestDL/AdditionalTrusts`` para incluir tanto os certificados do sistema quanto aqueles em que você confia.
 
-### Client Authorization
+### Client Authorization (Autorização do Cliente)
 
-Authentication of the client is performed by combining two certificates, the public and the private. The implementation is done using ``RequestDL/Certificates`` and ``RequestDL/PrivateKey``.
+A autenticação do cliente é realizada combinando dois certificados, o público e o privado. A implementação é feita usando ``RequestDL/Certificates`` e ``RequestDL/PrivateKey``.
 
-#### Certificates
+#### Certificates (Certificados)
 
-Represents the public certificates used by the client to authenticate with the server.
+Representa os certificados públicos usados pelo cliente para autenticação com o servidor.
 
 ```swift
 Certificates {
@@ -62,29 +62,29 @@ Certificates {
 }
 ```
 
-#### PrivateKey
+#### PrivateKey (Chave Privada)
 
-The private certificate is typically used to generate the public certificate.
+O certificado privado é normalmente usado para gerar o certificado público.
 
 ```swift
 PrivateKey(privateFile1)
 ```
 
-> Important: Private certificates protected by a password can be used by adding the **`password:`** parameter during initialization.
+> Important: Certificados privados protegidos por senha podem ser usados adicionando o parâmetro **`password:`** durante a inicialização.
 
-### PSK
+### PSK (Pre-Shared Key)
 
-Using shared symmetric keys between the server and the client, PSK is a secure way to communicate with the server.
+Usando chaves simétricas compartilhadas entre o servidor e o cliente, o PSK é uma maneira segura de se comunicar com o servidor.
 
-The configuration is simple and only requires implementing the ``SSLPSKIdentityResolver``. When using it in the ``Property``, you should secure the instance of the implemented resolver using ``StoredObject`` to optimize the code.
+A configuração é simples e requer apenas a implementação do ``SSLPSKIdentityResolver``. Ao usá-lo na ``Property``, você deve proteger a instância do resolvedor implementado usando ``StoredObject`` para otimizar o código.
 
-```swift 
+```swift
 struct GithubAPI: Property {
 
     @StoredObject var psk = GithubPSKResolver()
 
     var body: some Property {
-        // Other property specifications
+        // Outras especificações de propriedade
         SecureConnection {
             PSKIdentity(psk)
         }
@@ -92,39 +92,39 @@ struct GithubAPI: Property {
 }
 ```
 
-- Warning: You should exclusively choose either Trust/Client Authorization or PSK. Defining both in the same request can result in unexpected behavior.
+> Warning: Você deve escolher exclusivamente Trust (Confiança) / Autorização do Cliente ou PSK. Definir ambos na mesma requisição pode resultar em comportamento inesperado.
 
-### Optimizations
+### Otimizações
 
-Despite the fact that ``RequestDL/Property/body-swift.property`` is called constantly for each request made, RequestDL contains some optimizations to avoid the need to reload the file.
+Apesar de ``RequestDL/Property/body-swift.property`` ser chamado constantemente para cada requisição feita, o RequestDL contém algumas otimizações para evitar a necessidade de recarregar o arquivo.
 
-> Warning: If the certificates are updated at runtime, RequestDL will not automatically switch to the new version. Therefore, when updating the certificate, change the file name to one that has not been used before.
+> Warning: Se os certificados forem atualizados em tempo de execução, o RequestDL não mudará automaticamente para a nova versão. Portanto, ao atualizar o certificado, altere o nome do arquivo para um que ainda não tenha sido usado.
 
-This rule is necessary to avoid the instantiation of new clients provided by `AsyncHTTPClient`. Additionally, if your application remains idle for a certain period of time, RequestDL expires the saved information and then starts using the new certificate, unless measures are taken. 
+Essa regra é necessária para evitar a criação de novos clientes fornecidos pelo `AsyncHTTPClient`. Além disso, se o seu aplicativo permanecer ocioso por um determinado período de tempo, o RequestDL expirará as informações salvas e começará a usar o novo certificado, a menos que medidas sejam tomadas.
 
-## Topics
+## Tópicos
 
-### The basics about certificates
+### Noções básicas sobre certificados
 
 - ``RequestDL/Certificate``
 
-### Configuring the server trust
+### Configurando a confiança do servidor
 
 - ``RequestDL/DefaultTrusts``
 - ``RequestDL/Trusts``
 - ``RequestDL/AdditionalTrusts``
 
-### Setting up the client authorization
+### Configurando a autorização do cliente
 
 - ``RequestDL/Certificates``
 - ``RequestDL/PrivateKey``
 
-### Working with PSK
+### Trabalhando com PSK (Pre-Shared Key)
 
 - ``RequestDL/PSKIdentity``
 - ``RequestDL/SSLPSKIdentityResolver``
 
-### The TLS configuration
+### A configuração do TLS
 
 - ``RequestDL/SecureConnection``
 - ``RequestDL/TLSVersion``

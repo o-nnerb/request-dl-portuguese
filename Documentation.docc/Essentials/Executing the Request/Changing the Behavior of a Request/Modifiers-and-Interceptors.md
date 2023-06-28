@@ -1,22 +1,22 @@
-# Using Modifiers and Interceptors
+# Usando Modificadores e Interceptadores
 
-Discover how to implement a modifier and interceptor to handle and make your requests self-sufficient.
+Descubra como implementar um modificador e um interceptador para lidar e tornar suas requisições auto-suficientes.
 
-## Overview
+## Visão geral
 
-Each queried endpoint is subject to different handling rules. In most cases, the flow of receiving the response and delivering the processed data is the same.
+Cada ponto de extremidade consultado está sujeito a diferentes regras de manipulação. Na maioria dos casos, o fluxo de receber a resposta e entregar os dados processados é o mesmo.
 
-To integrate the request processing logic directly into the construction of a ``RequestDL/RequestTask``, two protocols are provided: ``RequestDL/RequestTaskModifier`` and ``RequestDL/RequestTaskInterceptor``.
+Para integrar a lógica de processamento da requisição diretamente na construção de uma ``RequestDL/RequestTask``, dois protocolos são fornecidos: ``RequestDL/RequestTaskModifier`` e ``RequestDL/RequestTaskInterceptor``.
 
-### Task Modifier
+### Modificador de tarefa
 
-There are infinite possibilities when implementing a `Modifier`. It is possible to perform operations both before making a request and after receiving the response.
+Existem infinitas possibilidades ao implementar um `Modificador`. É possível realizar operações tanto antes de fazer uma requisição quanto após receber a resposta.
 
-When implementing your `Modifier`, simply call the ``RequestDL/RequestTask/modifier(_:)`` method, and your request will be handled by it. Additionally, you can specify the `Input` and `Output` of the `Modifier` to implement specific logic.
+Ao implementar seu `Modificador`, basta chamar o método ``RequestDL/RequestTask/modifier(_:)``, e sua requisição será manipulada por ele. Além disso, você pode especificar o `Input` e `Output` do `Modificador` para implementar lógica específica.
 
-Some interesting ideas for API-specific `Modifier`:
+Algumas ideias interessantes para `Modificador` específico da API:
 
-1. Token Refresh
+1. Atualização do token
 
     ```swift
     struct TokenRefreshModifier: RequestTaskModifier {
@@ -25,24 +25,24 @@ Some interesting ideas for API-specific `Modifier`:
 
         func body(_ task: Content) async throws -> Input {
             let result = try await task.result()
-        
+
             guard result.head.status.code == 401 else {
                 return result
             }
-            
-            // If no error is thrown, then it's safe to re-run the request
+
+            // Se nenhum erro for lançado, então é seguro executar a requisição novamente
             try await refreshToken()
             return try await task.result()
         }
     }
     ```
 
-2. Project defaults modifiers
+2. Modificadores padrão do projeto
 
     ```swift
     struct DefaultsModifier<Object: Decodable>: RequestTaskModifier {
 
-        typelias Input = TaskResult<Data>
+        typealias Input = TaskResult<Data>
 
         let objectType: Object.Type
 
@@ -60,15 +60,15 @@ Some interesting ideas for API-specific `Modifier`:
     }
     ```
 
-> Note: RequestDL provides a variety of implemented modifiers, which can be checked through the ``RequestDL/Modifiers`` enumerator.
+> Note: O RequestDL fornece uma variedade de modificadores implementados, que podem ser verificados por meio do enumerador ``RequestDL/Modifiers``.
 
-### Task Interceptor
+### Interceptador de tarefa
 
-The `Interceptor` aims to perform an operation independently of the rest of the request. It functions as a code diversion that is always executed regardless of the conditions.
+O `Interceptador` tem como objetivo realizar uma operação independentemente do restante da requisição. Ele funciona como uma divergência de código que é sempre executada independentemente das condições.
 
-When implementing your `Interceptor`, you should call the method ``RequestDL/RequestTask/interceptor(_:)`` to incorporate it into any request. Every `Interceptor` must specify the type of the `Element`, which is the result object of the original intercepted ``RequestTask``.
+Ao implementar seu `Interceptador`, você deve chamar o método ``RequestDL/RequestTask/interceptor(_:)`` para incorporá-lo em qualquer requisição. Cada `Interceptador` deve especificar o tipo do `Element`, que é o objeto de resultado da ``RequestTask`` original interceptada.
 
-Here is a simple example of how to implement an `Interceptor`:
+Aqui está um exemplo simples de como implementar um `Interceptador`:
 
 ```swift
 struct AlwaysPrintInterceptor<Element>: RequestTaskInterceptor {
@@ -76,34 +76,34 @@ struct AlwaysPrintInterceptor<Element>: RequestTaskInterceptor {
     func output(_ result: Result<Element, Error>) {
         switch result {
         case .success(let element):
-            print("[Success]", element)
+            print("[Sucesso]", element)
         case .failure(let error):
-            print("[Failure]", error)
+            print("[Falha]", error)
         }
     }
 }
 ```
 
-> Note: RequestDL provides some interceptors, which can be checked through the ``RequestDL/Interceptors`` enumerator.
+> Note: O RequestDL fornece alguns interceptadores, que podem ser verificados por meio do enumerador ``RequestDL/Interceptors``.
 
-## Topics
+## Tópicos
 
-### Modifying the request
+### Modificando a requisição
 
 - ``RequestDL/RequestTaskModifier``
 - ``RequestDL/ModifiedRequestTask``
 - ``RequestDL/RequestTask/modifier(_:)``
 
-### Intercepting the request
+### Interceptando a requisição
 
 - ``RequestDL/RequestTaskInterceptor``
 - ``RequestDL/InterceptedRequestTask``
 - ``RequestDL/RequestTask/interceptor(_:)``
 
-### Exploring the available modifiers
+### Explorando os modificadores disponíveis
 
 - ``RequestDL/Modifiers``
 
-### Exploring the available interceptors
+### Explorando os interceptadores disponíveis
 
-- ``RequestDL/Interceptors`` 
+- ``RequestDL/Interceptors``

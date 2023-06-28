@@ -1,22 +1,22 @@
-# Creating requests from scratch
+# Criando requisições do zero
 
-Discover the various available types that can be used to specify a request. 
+Descubra os vários tipos disponíveis que podem ser usados para especificar uma requisição.
 
-## Overview
+## Visão geral
 
-When using RequestDL, it is crucial to understand the fundamental concepts that define the components of an HTTP request as they play a crucial role in how requests are made.
+Ao usar o RequestDL, é crucial entender os conceitos fundamentais que definem os componentes de uma requisição HTTP, pois eles desempenham um papel crucial na forma como as requisições são feitas.
 
-Requests are built by combining different essential components: URL, method, headers, and body. Each of these components is represented by an extensive set of objects that allow you to configure and customize every aspect of a request.
+As requisições são construídas combinando diferentes componentes essenciais: URL, método, cabeçalhos e corpo. Cada um desses componentes é representado por um extenso conjunto de objetos que permitem configurar e personalizar todos os aspectos de uma requisição.
 
-This flexible and modular approach of RequestDL provides granular control over the requests and allows you to adapt them according to the specific needs of each scenario.
+Essa abordagem flexível e modular do RequestDL fornece controle granular sobre as requisições e permite adaptá-las de acordo com as necessidades específicas de cada cenário.
 
 ### URL
 
-The URL of a request consists of four main parts: scheme, host, paths, and query parameters. There are several objects available in RequestDL that facilitate working with each of these components.
+A URL de uma requisição consiste em quatro partes principais: esquema, host, caminhos e parâmetros de consulta. Existem vários objetos disponíveis no RequestDL que facilitam o trabalho com cada um desses componentes.
 
 - **[BaseURL](<doc:RequestDL/BaseURL>)**
 
-    Defines the scheme and host of the URL. It allows you to specify whether the request will use HTTP or HTTPS as the scheme, as well as the destination host.
+    Define o esquema e o host da URL. Permite especificar se a requisição usará HTTP ou HTTPS como esquema, bem como o host de destino.
 
     ```swift
     BaseURL(.http, host: "apple.com")
@@ -24,7 +24,7 @@ The URL of a request consists of four main parts: scheme, host, paths, and query
 
 - **[Path](<doc:RequestDL/Path>)**
 
-    Adds paths to the URL. It enables you to include specific path segments in the URL, providing a hierarchical structure for locating the desired resources.
+    Adiciona caminhos à URL. Permite incluir segmentos de caminho específicos na URL, fornecendo uma estrutura hierárquica para localizar os recursos desejados.
 
     ```swift
     Path("api/v1")
@@ -32,39 +32,39 @@ The URL of a request consists of four main parts: scheme, host, paths, and query
 
 - **[Query](<doc:RequestDL/Query>)**
 
-    Adds query parameters to the URL. These parameters are used to convey additional information in the request.
+    Adiciona parâmetros de consulta à URL. Esses parâmetros são usados para transmitir informações adicionais na requisição.
 
     ```swift
     Query(name: "create_at", value: Date())
     ```
 
-> Tip: Explore the ``RequestDL/URLEncoder`` to use other ways of inserting parameters in the URL.
+> Tip: Explore o ``RequestDL/URLEncoder`` para usar outras formas de inserir parâmetros na URL.
 
-### Method
+### Método
 
-HTTP requests have a series of methods to perform different operations on the same endpoint. The most common methods are GET, POST, PUT, and DELETE, each with its own meaning.
+As requisições HTTP têm uma série de métodos para realizar diferentes operações no mesmo ponto de extremidade. Os métodos mais comuns são GET, POST, PUT e DELETE, cada um com seu próprio significado.
 
 - **[RequestMethod](<doc:RequestDL/RequestMethod>)**
 
-    Specifies the method to be used in the request. The values are predefined by the ``RequestDL/HTTPMethod`` object. The default method is always GET.
+    Especifica o método a ser usado na requisição. Os valores são predefinidos pelo objeto ``RequestDL/HTTPMethod``. O método padrão é sempre GET.
 
     ```swift
     RequestMethod(.post)
     ```
 
-> Note: Check out the [HTTP request methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) to learn more.
+> Note: Consulte os [métodos de requisição HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) para saber mais.
 
-### Headers
+### Cabeçalhos
 
-The headers of an HTTP request play a fundamental role in establishing settings and conveying relevant information between the client and the server.
+Os cabeçalhos de uma requisição HTTP desempenham um papel fundamental no estabelecimento de configurações e na transmissão de informações relevantes entre o cliente e o servidor.
 
-They are responsible for defining various characteristics of the transmitted object and indicating the client's expectations regarding the response.
+Eles são responsáveis por definir várias características do objeto transmitido e indicar as expectativas do cliente em relação à resposta.
 
-Additionally, headers can include API access keys, authentication details, accepted or expected content types, location information, and many other important details.
+Além disso, os cabeçalhos podem incluir chaves de acesso a APIs, detalhes de autenticação, tipos de conteúdo aceitos ou esperados, informações de localização e muitos outros detalhes importantes.
 
 - **[CustomHeader](<doc:RequestDL/CustomHeader>)**
 
-    Specifies a header with a custom name and value. Recommended for use when there is no specific header object defined by RequestDL.
+    Especifica um cabeçalho com um nome e valor personalizados. Recomendado para uso quando não há um objeto de cabeçalho específico definido pelo RequestDL.
 
     ```swift
     CustomHeader(name: "X-api-token", value: "*****")
@@ -72,75 +72,75 @@ Additionally, headers can include API access keys, authentication details, accep
 
 - **[AcceptHeader](<doc:RequestDL/AcceptHeader>)**
 
-    Defines the expected data type as the response from the client. Predefined values in ``RequestDL/ContentType``.
+    Define o tipo de dados esperado como a resposta do cliente. Valores predefinidos em ``RequestDL/ContentType``.
 
     ```swift
     AcceptHeader(.json)
     ```
 
-Learn more in [Meet the headers](#meet-the-headers).
+Saiba mais em [Conheça os cabeçalhos](#conheça-os-cabeçalhos).
 
-### Body
+### Corpo
 
-The most essential and critical part of an HTTP request is the body. It is essential for sending various types of data to the server. It is critical as it requires various optimization, monitoring, compression, integrity, and security resources.
+A parte mais essencial e crítica de uma requisição HTTP é o corpo. É essencial para enviar vários tipos de dados para o servidor. É crítico, pois requer vários recursos de otimização, monitoramento, compressão, integridade e segurança.
 
 - **[Payload](<doc:RequestDL/Payload>)**
 
-    Defines the request body in the raw byte format. The understanding of the sent data is defined by the ``RequestDL/ContentType`` with predefined values.
+    Define o corpo da requisição no formato de bytes brutos. A compreensão dos dados enviados é definida pelo ``RequestDL/ContentType`` com valores predefinidos.
 
     ```swift
-    Payload(verbatim: "Hello World!", contentType: .text)
+    Payload(verbatim: "Olá Mundo!", contentType: .text)
     ```
 
 - **[Form](<doc:RequestDL/Form>)**
 
-    Defines a part of the request body in the **multipart/form-data** format. To define the entire set, check out the ``RequestDL/FormGroup``.
+    Define uma parte do corpo da requisição no formato **multipart/form-data**. Para definir o conjunto completo, confira o ``RequestDL/FormGroup``.
 
     ```swift
     Form(
         name: "hello_world",
         contentType: .text,
-        verbatim: "Hello World!"
+        verbatim: "Olá Mundo!"
     )
     ```
 
-    > Important: The **name** parameter is required, while the **filename** is optional.
+    > Important: O parâmetro **name** é obrigatório, enquanto o **filename** é opcional.
 
-Explore more about the request body in [Exploring the payload](<doc:Exploring-payload>).
+Explore mais sobre o corpo da requisição em [Explorando o payload](<doc:Exploring-payload>).
 
-### Create your own
+### Crie o seu próprio
 
-The Swift `@resultBuilder` combined with the opaque type makes it more flexible to develop solutions, especially respecting the unique needs of each problem.
+O `@resultBuilder` do Swift combinado com o tipo opaco torna mais flexível o desenvolvimento de soluções, especialmente respeitando as necessidades únicas de cada problema.
 
-Declarative programming has a series of advantages and disadvantages, and each solution should explore the available tools.
+A programação declarativa tem uma série de vantagens e desvantagens, e cada solução deve explorar as ferramentas disponíveis.
 
-With ``RequestDL/Property`` and ``RequestDL/PropertyBuilder``, you can define a unique property that configures a series of behaviors within the request, which can be reused in all scenarios.
+Com ``RequestDL/Property`` e ``RequestDL/PropertyBuilder``, você pode definir uma propriedade única que configura uma série de comportamentos dentro da requisição, que podem ser reutilizados em todos os cenários.
 
 ```swift
 struct AppleAPI: Property {
 
     var body: some Property {
-        // Body specification
+        // Especificação do corpo
     }
 }
 ```
 
-You can explore this approach to create unique solutions for any component within the request, whether it's defining the URL, headers, or body, as well as other properties related to request configuration.
+Você pode explorar essa abordagem para criar soluções exclusivas para qualquer componente dentro da requisição, seja definindo a URL, cabeçalhos ou corpo, bem como outras propriedades relacionadas à configuração da requisição.
 
-Learn more in:
+Saiba mais em:
 
 - **<doc:Creating-the-project-property>**
 - **<doc:Secure-connection>**
 - **<doc:Cache-support>**
 
-## Topics
+## Tópicos
 
-### The core of all requests
+### O cerne de todas as requisições
 
 - ``RequestDL/Property``
 - ``RequestDL/PropertyBuilder``
 
-### The power of result builder
+### O poder do construtor de resultados
 
 - ``RequestDL/PropertyGroup``
 - ``RequestDL/PropertyForEach``
@@ -148,7 +148,7 @@ Learn more in:
 - ``RequestDL/AnyProperty``
 - ``RequestDL/AsyncProperty``
 
-### Specifying the URL
+### Especificando a URL
 
 - ``RequestDL/BaseURL``
 - ``RequestDL/URLScheme``
@@ -156,21 +156,21 @@ Learn more in:
 - ``RequestDL/BaseURLError``
 - ``RequestDL/Path``
 
-### Adding query parameters
+### Adicionando parâmetros de consulta
 
 - ``RequestDL/Query``
 - ``RequestDL/QueryGroup``
 
-### Defining the request method
+### Definindo o método da requisição
 
 - ``RequestDL/RequestMethod``
 - ``RequestDL/HTTPMethod``
 
-### Working with authentication
+### Trabalhando com autenticação
 
 - ``RequestDL/Authorization``
 
-### Meet the headers
+### Conheça os cabeçalhos
 
 - ``RequestDL/CustomHeader``
 - ``RequestDL/AcceptHeader``
@@ -182,30 +182,30 @@ Learn more in:
 - ``RequestDL/UserAgentHeader``
 - ``RequestDL/HeaderGroup``
 
-### Changing the headers behavior
+### Alterando o comportamento dos cabeçalhos
 
 - ``RequestDL/HeaderStrategy``
 - ``RequestDL/Property/headerStrategy(_:)``
 - ``RequestDL/Property/headerSeparator(_:)``
 
-### Working with payload
+### Trabalhando com o corpo da requisição
 
 - <doc:Exploring-payload>
 
-### Making secure requests
+### Realizando requisições seguras
 
 - <doc:Secure-connection>
 
-### Configuration of Session
+### Configuração da sessão
 
 - ``RequestDL/Session``
 
-### Adding request timeout
+### Adicionando tempo limite de requisição
 
 - ``RequestDL/Timeout``
 - ``RequestDL/UnitTime``
 
-### Modifying the properties
+### Modificando as propriedades
 
 - ``RequestDL/PropertyModifier``
 - ``RequestDL/Property/modifier(_:)``
