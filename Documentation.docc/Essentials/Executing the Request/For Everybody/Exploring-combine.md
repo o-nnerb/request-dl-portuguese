@@ -21,7 +21,7 @@ func detalhesDoUsuario() -> PublishedTask<User> {
 }
 ```
 
-## Tópicos
+## Topics
 
 ### Conhecendo o modificador
 

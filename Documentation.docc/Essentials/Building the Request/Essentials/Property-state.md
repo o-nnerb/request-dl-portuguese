@@ -85,7 +85,7 @@ Devido a uma série de otimizações relacionadas ao funcionamento do SwiftNIO e
 
 Para cada `@PropertyNamespace` definido, o RequestDL combina os valores para formar um identificador de memória único. **É crucial usá-los ao trabalhar com ``RequestDL/StoredObject``**.
 
-## Tópicos
+## Topics
 
 ### Conheça o ambiente
 

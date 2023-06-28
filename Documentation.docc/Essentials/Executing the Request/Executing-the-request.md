@@ -2,7 +2,7 @@
 
 Descubra as possibilidades de executar sua solicitação e manipular os dados recebidos, aplicando regras de negócio e validando campos.
 
-## Tópicos
+## Topics
 
 ### Para todos
 

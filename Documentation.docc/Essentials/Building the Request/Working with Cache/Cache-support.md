@@ -51,7 +51,7 @@ Estes são os principais métodos de uso:
 
 > Note: Assim como usamos métodos para especificar o local de armazenamento em uma especificação de requisição, os inicializadores do ``RequestDL/DataCache`` estão disponíveis com as mesmas opções.
 
-## Tópicos
+## Topics
 
 ### O sistema de cache
 

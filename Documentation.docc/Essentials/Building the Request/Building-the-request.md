@@ -2,7 +2,7 @@
 
 Explore os diversos tipos e configurações disponíveis para fazer sua solicitação.
 
-## Tópicos
+## Topics
 
 ### Fundamentos
 
@@ -15,3 +15,5 @@ Explore os diversos tipos e configurações disponíveis para fazer sua solicita
 - <doc:Secure-connection>
 
 ### Trabalhando com cache
+
+- <doc:Cache-support>

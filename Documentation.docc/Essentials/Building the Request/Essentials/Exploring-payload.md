@@ -62,7 +62,7 @@ Payload(userModel, contentType: .formURLEncoded)
 // Resultado: name=John&age=20
 ```
 
-## Tópicos
+## Topics
 
 ### Inserindo bytes no corpo da requisição
 

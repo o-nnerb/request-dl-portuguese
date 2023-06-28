@@ -14,7 +14,7 @@ Explorar esse recurso no RequestDL envolve separar os conceitos de upload e down
 
 Ao usar o modificador ``RequestDL/Modifiers/Progress``, processamos os bytes enviados e recebidos e notificamos o respectivo monitor em cada etapa. Para esse fim, foram implementados o ``RequestDL/UploadProgress`` e o ``RequestDL/DownloadProgress``.
 
-## Tópicos
+## Topics
 
 ### Documentação relacionada
 

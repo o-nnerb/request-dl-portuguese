@@ -90,7 +90,7 @@ Em seguida, para cada item na sequência, você terá acesso ao resultado indivi
 
 > Warning: O elemento deve conformar-se ao protocolo `Hashable`.
 
-## Tópicos
+## Topics
 
 ### O básico
 
