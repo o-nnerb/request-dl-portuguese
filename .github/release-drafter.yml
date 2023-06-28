@@ -1,0 +1,12 @@
+categories:
+  - title: '🚀 Enhancements'
+    labels:
+      - 'enhancement'
+  - title: '🧰 Maintenance'
+    label:
+      - 'documentation'
+category-template: "### $TITLE"
+template: |
+  ## What’s Changed
+
+  $CHANGES
