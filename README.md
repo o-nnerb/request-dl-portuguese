@@ -12,19 +12,19 @@ Uma das principais características do RequestDL é o suporte à especificação
 
 O protocolo `Property` é outra poderosa funcionalidade que permite que os desenvolvedores implementem propriedades personalizadas para definir vários aspectos da requisição dentro de uma especificação de struct ou usando o `@PropertyBuilder`. Isso facilita a personalização das requisições para atender às necessidades específicas.
 
-## [Documentação](https://swiftpackageindex.com/request-dl/request-dl/main/documentation/requestdl)
+## [Documentação](https://brennobemoura.github.io/request-dl-portuguese/documentation/requestdl/)
 
 Confira nossa documentação abrangente para obter todas as informações necessárias para começar a usar o RequestDL em seu projeto.
 
 ### Primeiros passos
 
-- [Criando a propriedade do projeto](https://swiftpackageindex.com/request-dl/request-dl/main/documentation/requestdl/creating-the-project-property)
-- [Preparando os certificados](https://swiftpackageindex.com/request-dl/request-dl/main/documentation/requestdl/preparing-the-certificates)
+- [Criando a propriedade do projeto](https://brennobemoura.github.io/request-dl-portuguese/documentation/requestdl//creating-the-project-property)
+- [Preparando os certificados](https://brennobemoura.github.io/request-dl-portuguese/documentation/requestdl//preparing-the-certificates)
 
 ### Conceitos essenciais
 
-- [Construindo a requisição](https://swiftpackageindex.com/request-dl/request-dl/main/documentation/requestdl/building-the-request)
-- [Executando a requisição](https://swiftpackageindex.com/request-dl/request-dl/main/documentation/requestdl/executing-the-request)
+- [Construindo a requisição](https://brennobemoura.github.io/request-dl-portuguese/documentation/requestdl//building-the-request)
+- [Executando a requisição](https://brennobemoura.github.io/request-dl-portuguese/documentation/requestdl//executing-the-request)
 
 ### Traduções
 
