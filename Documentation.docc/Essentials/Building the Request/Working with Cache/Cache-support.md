@@ -1,28 +1,28 @@
-# Caching your responses
+# Armazenando em cache suas respostas
 
-Caching requests is crucial for saving costs and unnecessary loading screens. Dive deep into how to use the RequestDL's caching system.
+Armazenar em cache as requisições é crucial para economizar custos e evitar telas de carregamento desnecessárias. Aprofunde-se em como usar o sistema de cache do RequestDL.
 
-## Overview
+## Visão geral
 
-Caching requests is crucial for both user experience and reducing unnecessary costs associated with consuming remote APIs.
+Armazenar em cache as requisições é crucial tanto para a experiência do usuário quanto para a redução de custos desnecessários associados ao consumo de APIs remotas.
 
-RequestDL provides two ways to do this: through ``RequestDL/Property/cache(memoryCapacity:diskCapacity:url:)`` or through ``RequestDL/DataCache``.
+O RequestDL oferece duas maneiras de fazer isso: por meio de ``RequestDL/Property/cache(memoryCapacity:diskCapacity:url:)`` ou por meio de ``RequestDL/DataCache``.
 
-Depending on the needs of each project, it may be interesting to use both methods, as one of them is completely independent of the request logic.
+Dependendo das necessidades de cada projeto, pode ser interessante usar ambos os métodos, pois um deles é completamente independente da lógica da requisição.
 
-> Warning: ``RequestDL/DataCache`` does not apply any validation regarding the validity of the cache.
+> Warning: ``RequestDL/DataCache`` não aplica nenhuma validação em relação à validade do cache.
 
 ### Property
 
-Configuring and using the cache system directly during the request specification is advantageous because it is a shorter path. Additionally, depending on the ``RequestDL/CacheStrategy`` used, RequestDL checks if the cache is valid at the endpoint, simple as that.
+Configurar e usar o sistema de cache diretamente durante a especificação da requisição é vantajoso porque é um caminho mais curto. Além disso, dependendo da ``RequestDL/CacheStrategy`` utilizada, o RequestDL verifica se o cache é válido no ponto de extremidade, simples assim.
 
-To do this, you need to pay attention to the following points:
+Para fazer isso, é necessário prestar atenção nos seguintes pontos:
 
-1. Specify the ``RequestDL/DataCache/Policy``.
-2. Choose the ``RequestDL/CacheStrategy``.
-3. Define the storage location with ``RequestDL/Property/cache(memoryCapacity:diskCapacity:url:)``.
+1. Especificar a ``RequestDL/DataCache/Policy``.
+2. Escolher a ``RequestDL/CacheStrategy``.
+3. Definir o local de armazenamento com ``RequestDL/Property/cache(memoryCapacity:diskCapacity:url:)``.
 
-Here's an example of how these three points are implemented in practice:
+Aqui está um exemplo de como esses três pontos são implementados na prática:
 
 ```swift
 DataTask {
@@ -33,15 +33,15 @@ DataTask {
 }
 ```
 
-Defining the storage location is optional. The default values for memory and disk usage are 2 MB. However, ``RequestDL/DataCache/Policy`` and ``RequestDL/CacheStrategy`` are essential for active caching.
+A definição do local de armazenamento é opcional. Os valores padrão para uso em memória e em disco são 2 MB. No entanto, ``RequestDL/DataCache/Policy`` e ``RequestDL/CacheStrategy`` são essenciais para o cache ativo.
 
-> Important: There are three options to choose where to store the cache: URL, suiteName, or exclusively reserved for the app.
+> Important: Existem três opções para escolher onde armazenar o cache: URL, suiteName ou exclusivamente reservado para o aplicativo.
 
 ### DataCache
 
-Another way to store the result of a request is by using ``RequestDL/DataCache`` directly. You can even implement your own logic for storing and using RequestDL's default when making the request again.
+Outra maneira de armazenar o resultado de uma requisição é usando ``RequestDL/DataCache`` diretamente. Você até mesmo pode implementar sua própria lógica para armazenar e usar o cache padrão do RequestDL ao fazer a requisição novamente.
 
-These are the main usage methods:
+Estes são os principais métodos de uso:
 
 @Links(visualStyle: list) {
     - ``RequestDL/DataCache/getCachedData(forKey:policy:)``
@@ -49,28 +49,28 @@ These are the main usage methods:
     - ``RequestDL/DataCache/remove(forKey:)``
 }
 
-> Note: Just like we use methods to specify the storage location in a request specification, the ``RequestDL/DataCache`` initializers are available with the same options.
+> Note: Assim como usamos métodos para especificar o local de armazenamento em uma especificação de requisição, os inicializadores do ``RequestDL/DataCache`` estão disponíveis com as mesmas opções.
 
-## Topics
+## Tópicos
 
-### The caching system
+### O sistema de cache
 
 - ``RequestDL/DataCache``
 - ``RequestDL/CachedData``
 - ``RequestDL/EmptyCachedDataError``
 
-### Defining the strategy
+### Definindo a estratégia
 
 - ``RequestDL/CacheStrategy``
 - ``RequestDL/Property/cacheStrategy(_:)``
 
-### Defining the policy
+### Definindo a política
 
 - ``RequestDL/DataCache/Policy``
 - ``RequestDL/DataCache/Policy/Set``
 - ``RequestDL/Property/cachePolicy(_:)``
 
-### Initializing the cache  
+### Inicializando o cache
 
 - ``RequestDL/Property/cache(memoryCapacity:diskCapacity:)``
 - ``RequestDL/Property/cache(memoryCapacity:diskCapacity:suiteName:)``
