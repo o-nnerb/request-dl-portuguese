@@ -1,18 +1,18 @@
-# Storing and reading values inside properties
+# Armazenando e lendo valores dentro de propriedades
 
-Discover how to obtain values and utilize classes within a property during the specification of a request.
+Descubra como obter valores e utilizar classes dentro de uma propriedade durante a especificação de uma requisição.
 
-## Overview
+## Visão geral
 
-The integration of various important resources in a request was made possible due to the implementation of some `@propertyWrapper` that are directly linked to ``RequestDL/Property``.
+A integração de vários recursos importantes em uma requisição foi possibilitada pela implementação de alguns `@propertyWrapper` que estão diretamente vinculados a ``RequestDL/Property``.
 
 ### Environment
 
-``RequestDL/PropertyEnvironment`` allows you to obtain the value of a property from ``RequestDL/PropertyEnvironmentValues`` during the construction of a property.
+``RequestDL/PropertyEnvironment`` permite que você obtenha o valor de uma propriedade de ``RequestDL/PropertyEnvironmentValues`` durante a construção de uma propriedade.
 
-Internally, some objects in RequestDL use the environment to retrieve important objects that influence the request's outcome. Therefore, you can explore these resources to create your own tools aligned with your system's requirements.
+Internamente, alguns objetos no RequestDL usam o ambiente para recuperar objetos importantes que influenciam o resultado da requisição. Portanto, você pode explorar esses recursos para criar suas próprias ferramentas alinhadas com os requisitos do seu sistema.
 
-You can start by specifying a ``RequestDL/PropertyEnvironmentKey`` as follows:
+Você pode começar especificando um ``RequestDL/PropertyEnvironmentKey`` da seguinte maneira:
 
 ```swift
 struct PayloadKey: PropertyEnvironmentKey {
@@ -35,7 +35,7 @@ extension Property {
 }
 ```
 
-And then retrieve the value using ``RequestDL/PropertyEnvironment``:
+E então recuperar o valor usando ``RequestDL/PropertyEnvironment``:
 
 ```swift
 struct GithubAPI: Property {
@@ -43,7 +43,7 @@ struct GithubAPI: Property {
     @PropertyEnvironment(\.payload) var payload
 
     var body: some Property {
-        // Other property specifications
+        // Outras especificações da propriedade
         if let payload {
             Payload(data: payload, contentType: customGithubJSONType)
         }
@@ -53,11 +53,11 @@ struct GithubAPI: Property {
 
 ### StoredObject
 
-``RequestDL/StoredObject`` stores the instantiated object in memory to assist in various optimizations.
+``RequestDL/StoredObject`` armazena o objeto instanciado na memória para auxiliar em várias otimizações.
 
-Its main use case is in the implementation of ``RequestDL/SecureConnection``, which, in some cases, requires encoding an object to be used during TLS verification.
+Seu principal caso de uso está na implementação de ``RequestDL/SecureConnection``, que, em alguns casos, requer a codificação de um objeto a ser usado durante a verificação TLS.
 
-Its usage is simple and intuitive:
+Seu uso é simples e intuitivo:
 
 ```swift
 struct GithubAPI: Property {
@@ -65,7 +65,7 @@ struct GithubAPI: Property {
     @StoredObject var psk = GithubSSLPSKIdentity()
 
     var body: some Property {
-        // Other property specifications
+        // Outras especificações da propriedade
         SecureConnection {
             PSKIdentity(psk)
         }
@@ -73,32 +73,32 @@ struct GithubAPI: Property {
 }
 ```
 
-> Note: There is a lifetime that maintains the object reference for a certain duration. After the expiration, a new object is used.
+> Note: Existe um tempo de vida que mantém a referência do objeto por uma determinada duração. Após a expiração, um novo objeto é usado.
 
 ### Namespace
 
-``RequestDL/PropertyNamespace`` directly influences the runtime memory reference where the state objects of ``RequestDL/Property`` are stored.
+``RequestDL/PropertyNamespace`` influencia diretamente a referência de memória em tempo de execução onde os objetos de estado de ``RequestDL/Property`` são armazenados.
 
-Due to a series of optimizations related to the functioning of SwiftNIO and AsyncHTTPClient, defining a Namespace helps RequestDL determine whether it needs to create new objects from scratch or use those that are cached in memory.
+Devido a uma série de otimizações relacionadas ao funcionamento do SwiftNIO e AsyncHTTPClient, definir um Namespace ajuda o RequestDL a determinar se precisa criar novos objetos a partir do zero ou usar aqueles que estão em cache na memória.
 
-> Warning: The memory cache referred to here is related to Swift objects and not request caching.
+> Warning: O cache de memória aqui referido está relacionado a objetos Swift e não a cache de requisições.
 
-For each `@PropertyNamespace` defined, RequestDL combines the values to form a unique memory identifier. **It is crucial to use them when working with ``RequestDL/StoredObject``**.
+Para cada `@PropertyNamespace` definido, o RequestDL combina os valores para formar um identificador de memória único. **É crucial usá-los ao trabalhar com ``RequestDL/StoredObject``**.
 
-## Topics
+## Tópicos
 
-### Meet the environment
+### Conheça o ambiente
 
 - ``RequestDL/PropertyEnvironmentKey``
 - ``RequestDL/PropertyEnvironmentValues``
 - ``RequestDL/PropertyEnvironment``
 - ``RequestDL/Property/environment(_:_:)``
 
-### Keep objects in memory
+### Mantenha objetos na memória
 
 - ``RequestDL/StoredObject``
 - ``RequestDL/DynamicValue``
 
-### Power requests with namespace
+### Potencialize requisições com namespace
 
 - ``RequestDL/PropertyNamespace``
