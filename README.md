@@ -2,39 +2,39 @@
 [![Platform Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Frequest-dl%2Frequest-dl%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/request-dl/request-dl)
 [![codecov](https://codecov.io/gh/request-dl/request-dl/branch/main/graph/badge.svg?token=MW5J053T85)](https://codecov.io/gh/request-dl/request-dl)
 
-# RequestDL
+# [https://github.com/request-dl/request-dl](RequestDL)
 
-> Thanks to **Mike Lewis**, progress is seamlessly integrated into this library, providing a simple and streamlined experience.
+> Graças ao **Mike Lewis**, o progresso foi integrado perfeitamente nesta biblioteca, proporcionando uma experiência simples e simplificada.
 
-RequestDL is a Swift package designed to simplify the process of performing network requests. It provides a set of tools, including the `RequestTask` protocol, which supports different types of requests, including `DataTask`, `DownloadTask`, and `UploadTask`.
+RequestDL é um pacote Swift projetado para simplificar o processo de realização de requisições de rede. Ele fornece um conjunto de ferramentas, incluindo o protocolo `RequestTask`, que suporta diferentes tipos de requisições, incluindo `DataTask`, `DownloadTask` e `UploadTask`.
 
-One of the key features of RequestDL is its support for specifying properties of a request, such as `Query`, `Payload`, and `Headers`, among others. You can also use  `RequestTaskModifier` and `RequestTaskInterceptor` to process the response after the request is  complete, allowing for actions like decoding, mapping, error handling based on status codes, and logging responses in the console.
+Uma das principais características do RequestDL é o suporte à especificação de propriedades de uma requisição, como `Query`, `Payload` e `Headers`, entre outros. Você também pode usar `RequestTaskModifier` e `RequestTaskInterceptor` para processar a resposta após a conclusão da requisição, permitindo ações como decodificação, mapeamento, tratamento de erros com base em códigos de status e registro de respostas no console.
 
-The `Property` protocol is another powerful feature that allows developers to implement custom properties to define various aspects of the request within a  struct specification or using the `@PropertyBuilder`. This makes it easy to customize  requests to meet specific needs.
+O protocolo `Property` é outra poderosa funcionalidade que permite que os desenvolvedores implementem propriedades personalizadas para definir vários aspectos da requisição dentro de uma especificação de struct ou usando o `@PropertyBuilder`. Isso facilita a personalização das requisições para atender às necessidades específicas.
 
-## [Documentation](https://swiftpackageindex.com/request-dl/request-dl/main/documentation/requestdl)
+## [Documentação](https://swiftpackageindex.com/request-dl/request-dl/main/documentation/requestdl)
 
-Check out our comprehensive documentation to get all the necessary information to start using RequestDL in your project.
+Confira nossa documentação abrangente para obter todas as informações necessárias para começar a usar o RequestDL em seu projeto.
 
-### First steps
+### Primeiros passos
 
-- [Creating the project property](https://swiftpackageindex.com/request-dl/request-dl/main/documentation/requestdl/creating-the-project-property)
-- [Preparing the certificates](https://swiftpackageindex.com/request-dl/request-dl/main/documentation/requestdl/preparing-the-certificates)
+- [Criando a propriedade do projeto](https://swiftpackageindex.com/request-dl/request-dl/main/documentation/requestdl/creating-the-project-property)
+- [Preparando os certificados](https://swiftpackageindex.com/request-dl/request-dl/main/documentation/requestdl/preparing-the-certificates)
 
-### Essentials
+### Conceitos essenciais
 
-- [Building the request](https://swiftpackageindex.com/request-dl/request-dl/main/documentation/requestdl/building-the-request)
-- [Executing the request](https://swiftpackageindex.com/request-dl/request-dl/main/documentation/requestdl/executing-the-request)
+- [Construindo a requisição](https://swiftpackageindex.com/request-dl/request-dl/main/documentation/requestdl/building-the-request)
+- [Executando a requisição](https://swiftpackageindex.com/request-dl/request-dl/main/documentation/requestdl/executing-the-request)
 
-### Translations
+### Traduções
 
-- [Portuguese](https://brennobemoura.github.io/request-dl-portuguese/documentation/requestdl)
+- [Português](https://brennobemoura.github.io/request-dl-portuguese/documentation/requestdl)
 
-We would be delighted to have your help in translating our documentation into your preferred language! Simply open a Pull Request on our repository with the link to your translated version. We are looking forward to receiving your contribution!
+Ficaríamos encantados em contar com sua ajuda na tradução de nossa documentação para o seu idioma preferido! Basta abrir um pull request (PR) em nosso repositório com o link para a versão traduzida. Estamos ansiosos para receber sua contribuição!
 
-## Installation
+## Instalação
 
-RequestDL can be installed using Swift Package Manager. To include it in your project, add the following dependency to your Package.swift file:
+O RequestDL pode ser instalado usando o Swift Package Manager. Para incluí-lo em seu projeto, adicione a seguinte dependência ao seu arquivo Package.swift:
 
 ```swift
 dependencies: [
@@ -42,11 +42,11 @@ dependencies: [
 ]
 ```
 
-## Usage
+## Uso
 
-Using RequestDL is easy and intuitive. You can create network requests in a  declarative way, specifying the properties of the request through the use of  the `Property` protocol or using the `@PropertyBuilder` attribute.
+Usar o RequestDL é fácil e intuitivo. Você pode criar requisições de rede de maneira declarativa, especificando as propriedades da requisição por meio do uso do protocolo `Property` ou usando o atributo `@PropertyBuilder`.
 
-Here's an example of a simple `DataTask` that queries Google for the term "apple",  logs the response in the console, and ignores the HTTP's response head:
+Aqui está um exemplo de um simples `DataTask` que faz uma consulta ao Google para o termo "apple", registra a resposta no console e ignora o cabeçalho de resposta HTTP:
 
 ```swift
 try await DataTask {
@@ -65,28 +65,28 @@ try await DataTask {
 .result()
 ```
 
-This code creates a `DataTask` with the `BaseURL` set to "google.com", a `HeaderGroup` containing the "Accept" set to "application/json", a "xxx-api-key" header set the API  token, and a query parameter with the key "q" and the value "apple". It then sets the  `logInConsole` property to true, which will print the response in the console when the request is completed. It also decodes the response into an instance of  `GoogleResponse` and then ignores it.
+Este código cria um `DataTask` com o `BaseURL` definido como "google.com", um `HeaderGroup` contendo o "Accept" definido como "application/json", um cabeçalho "xxx-api-key" definido com a chave da API e um parâmetro de consulta com a chave "q" e o valor "apple". Em seguida, define a propriedade `logInConsole` como true, que imprimirá a resposta no console quando a requisição for concluída. Ele também decodifica a resposta em uma instância de `GoogleResponse`.
 
-This is just a simple example of what RequestDL can do. Check out the documentation for more information on how to use it.
+Este é apenas um exemplo simples do que o RequestDL pode fazer. Consulte a documentação para obter mais informações sobre como usá-lo.
 
-## Versioning
+## Versionamento
 
-We follow semantic versioning for this project. The version number is composed of three parts: MAJOR.MINOR.PATCH.
+Seguimos o versionamento semântico para este projeto. O número da versão é composto por três partes: MAJOR.MINOR.PATCH.
 
-- MAJOR version: Increments when there are incompatible changes and breaking changes. These changes may require updates to existing code and could potentially break backward compatibility.
+- Versão MAJOR: Aumenta quando há alterações incompatíveis e alterações que quebram a compatibilidade. Essas alterações podem exigir atualizações no código existente e podem quebrar a compatibilidade retroativa.
 
-- MINOR version: Increments when new features or enhancements are added in a backward-compatible manner. It may include improvements, additions, or modifications to existing functionality.
+- Versão MINOR: Aumenta quando novos recursos ou aprimoramentos são adicionados de maneira compatível com versões anteriores. Pode incluir melhorias, adições ou modificações na funcionalidade existente.
 
-- The PATCH version includes bug fixes, patches, and safe modifications that address issues, bugs, or vulnerabilities without disrupting existing functionality. It may also include new features, but they must be implemented carefully to avoid breaking changes or compatibility issues.
+- A versão PATCH inclui correções de bugs, patches e modificações seguras que corrigem problemas, bugs ou vulnerabilidades sem interromper a funcionalidade existente. Também pode incluir novos recursos, mas eles devem ser implementados com cuidado para evitar alterações que quebrem a compatibilidade ou problemas de compatibilidade.
 
-It is recommended to review the release notes for each version to understand the specific changes and updates made in that particular release.
+É recomendado revisar as notas de lançamento de cada versão para entender as alterações e atualizações específicas feitas naquela versão específica.
 
-## Contributing
+## Contribuindo
 
-If you find a bug or have an idea for a new feature, please open an issue or  submit a pull request. We welcome contributions from the community!
+Se você encontrar um bug ou tiver uma ideia para um novo recurso, abra uma issue ou envie um pull request. Aceitamos contribuições da comunidade!
 
-## Acknowledgments
+## Agradecimentos
 
-This library owes a lot to the work of Carson Katri and his Swift package  [Request](https://github.com/carson-katri/swift-request). Many of the core  concepts and techniques used in RequestDL were inspired by Carson's library, and  the original implementation of RequestDL even used a fork of Carson's library as its foundation.
+Esta biblioteca deve muito ao trabalho de Carson Katri e seu pacote Swift [Request](https://github.com/carson-katri/swift-request). Muitos dos conceitos e técnicas principais usados no RequestDL foram inspirados pela biblioteca de Carson, e a implementação original do RequestDL até usou um fork da biblioteca de Carson como base.
 
-Without Carson's work, this library would not exist in its current form. Thank you,  Carson, for your contributions to the Swift community and for inspiring the development  of RequestDL.
+Sem o trabalho de Carson, esta biblioteca não existiria em sua forma atual. Obrigado, Carson, por suas contribuições à comunidade Swift e por inspirar o desenvolvimento do RequestDL.
