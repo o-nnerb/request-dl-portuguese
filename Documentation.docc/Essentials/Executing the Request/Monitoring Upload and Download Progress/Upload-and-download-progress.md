@@ -1,37 +1,37 @@
-# Using progress for upload and download requests
+# Utilizando progresso para requisições de upload e download
 
-Explore how to monitor your requests and track the progress of each operation precisely.
+Explore como monitorar suas requisições e rastrear o progresso de cada operação de forma precisa.
 
-## Overview
+## Visão geral
 
-The way SwiftNIO and AsyncHTTPClient send and receive data from the server allows for implementing a range of interesting features to handle the raw bytes involved in the operation.
+A forma como o SwiftNIO e o AsyncHTTPClient enviam e recebem dados do servidor permite a implementação de uma variedade de recursos interessantes para lidar com os bytes brutos envolvidos na operação.
 
-Whether sending a ``RequestDL/Payload`` or a ``RequestDL/Form``, it is possible to serialize the transmission into parts and monitor the upload progress. The same applies to download, as the same process happens internally.
+Seja enviando um ``RequestDL/Payload`` ou um ``RequestDL/Form``, é possível serializar a transmissão em partes e monitorar o progresso do upload. O mesmo se aplica ao download, pois o mesmo processo acontece internamente.
 
-### Monitors
+### Monitores
 
-Exploring this feature in RequestDL involves separating the concepts of upload and download, which are represented through the ``RequestDL/AsyncResponse`` object. The foundation of RequestDL is asynchronous and is fully supported by the principles discussed here.
+Explorar esse recurso no RequestDL envolve separar os conceitos de upload e download, que são representados pelo objeto ``RequestDL/AsyncResponse``. A base do RequestDL é assíncrona e é totalmente suportada pelos princípios discutidos aqui.
 
-By using the ``RequestDL/Modifiers/Progress`` modifier, we process the sent and received bytes and notify the respective monitor at each stage. For this purpose, the ``RequestDL/UploadProgress`` and ``RequestDL/DownloadProgress`` have been implemented.
+Ao usar o modificador ``RequestDL/Modifiers/Progress``, processamos os bytes enviados e recebidos e notificamos o respectivo monitor em cada etapa. Para esse fim, foram implementados o ``RequestDL/UploadProgress`` e o ``RequestDL/DownloadProgress``.
 
-## Topics
+## Tópicos
 
-### Related Documentation
+### Documentação relacionada
 
 - <doc:Exploring-payload>
 
-### The essentials tasks
+### As tarefas essenciais
 
 - ``RequestDL/UploadTask``
 - ``RequestDL/DownloadTask``
 
-### Meet the progress
+### Conhecendo o progresso
 
 - ``RequestDL/UploadProgress``
 - ``RequestDL/DownloadProgress``
 - ``RequestDL/Progress``
 
-### Discover the modifiers
+### Descobrindo os modificadores
 
 - ``RequestDL/Modifiers/Progress``
 - ``RequestDL/Modifiers/IgnoresProgress``
